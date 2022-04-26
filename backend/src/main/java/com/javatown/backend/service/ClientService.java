@@ -2,6 +2,7 @@ package com.javatown.backend.service;
 
 import com.javatown.backend.dto.ClientDTO;
 import com.javatown.backend.dto.ClientForm;
+import com.javatown.backend.exception.ClientAttributesMissingException;
 import com.javatown.backend.exception.ClientNotFoundException;
 import com.javatown.backend.model.Client;
 import com.javatown.backend.repository.*;
@@ -43,6 +44,8 @@ public class ClientService {
     }
 
     public ClientDTO saveClient(ClientForm form){
+        String missingFields = getMissingFields(form);
+        if (!missingFields.isEmpty()) throw new ClientAttributesMissingException(missingFields);
         return clientRepository.save(form.toClient()).toDTO();
     }
 
@@ -52,4 +55,13 @@ public class ClientService {
         return clientOptional.get().toDTO();
     }
 
+    private String getMissingFields(ClientForm form){
+        String missingFields = "";
+
+        if(form.getEmail() == null || form.getEmail().isBlank()) missingFields += "email, ";
+        if(form.getFirstName() == null || form.getFirstName().isBlank()) missingFields += "firstName, ";
+        if(form.getLastName() == null || form.getLastName().isBlank()) missingFields += "lastName";
+
+        return missingFields;
+    }
 }
