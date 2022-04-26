@@ -18,14 +18,18 @@ public class ClientController {
     }
 
     @PostMapping
-    public ClientDTO postClients(@RequestBody ClientForm clientForm){
+    public ClientDTO postClients(@RequestBody ClientForm clientForm) {
         return clientService.saveClient(clientForm);
     }
 
     @GetMapping
-    public List<ClientDTO> getClients(){
+    public List<ClientDTO> getClients() {
         return clientService.getAllClients();
     }
 
-
+    @GetMapping("/{id}")
+    public ClientDTO getClientById(@PathVariable long id) {
+        return clientService.getClientById(id);
+    }
 }
+

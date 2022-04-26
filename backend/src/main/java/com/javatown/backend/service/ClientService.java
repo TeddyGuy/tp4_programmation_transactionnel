@@ -2,12 +2,14 @@ package com.javatown.backend.service;
 
 import com.javatown.backend.dto.ClientDTO;
 import com.javatown.backend.dto.ClientForm;
+import com.javatown.backend.exception.ClientNotFoundException;
 import com.javatown.backend.model.Client;
 import com.javatown.backend.repository.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ClientService {
@@ -43,4 +45,11 @@ public class ClientService {
     public ClientDTO saveClient(ClientForm form){
         return clientRepository.save(form.toClient()).toDTO();
     }
+
+    public ClientDTO getClientById(long id){
+        Optional<Client> clientOptional = clientRepository.findById(id);
+        if(clientOptional.isEmpty()) throw new ClientNotFoundException(id);
+        return clientOptional.get().toDTO();
+    }
+
 }
