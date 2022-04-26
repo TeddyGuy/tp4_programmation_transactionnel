@@ -3,10 +3,9 @@ package com.javatown.backend.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,8 +18,8 @@ public class Client {
     private String firstName;
     private String lastName;
 
-    //@OneToMany(mappedBy = "client")
-    //private List<DocumentLoan> borrowingHistory = new ArrayList();
+    @OneToMany(mappedBy = "client")
+    private List<DocumentLoan> borrowingHistory = new ArrayList();
 
     public Client(String email, String firstName, String lastName) {
         this.email = email;
