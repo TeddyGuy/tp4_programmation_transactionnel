@@ -29,7 +29,7 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public ClientOutputDto toDTO(){
+    public ClientOutputDto toOutputDto(){
         return new ClientOutputDto(id,email,firstName,lastName);
     }
 

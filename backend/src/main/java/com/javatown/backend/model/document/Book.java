@@ -1,6 +1,8 @@
 package com.javatown.backend.model.document;
 
 
+import com.javatown.backend.dto.output.document.BookOutputDto;
+import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,5 +29,10 @@ public class Book extends Document{
         super(title, author, genre, publicationYear);
         this.publisher = publisher;
         this.pages = pages;
+    }
+
+    @Override
+    public DocumentOutputDto toOutputDto() {
+        return new BookOutputDto(id,title,author,genre,publicationYear,copies,publisher,pages);
     }
 }

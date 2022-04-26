@@ -38,8 +38,8 @@ public class ClientController {
     }
 
     @PatchMapping("/{id}")
-    public ClientOutputDto replaceClient(@PathVariable long id, @RequestBody ClientInputDto clientInputDto){
-        return clientService.replaceClientById(id, clientInputDto);
+    public ClientOutputDto updateClient(@PathVariable long id, @RequestBody ClientInputDto clientInputDto){
+        return clientService.updateClientById(id, clientInputDto);
     }
 }
 

@@ -1,5 +1,7 @@
 package com.javatown.backend.model.document;
 
+import com.javatown.backend.dto.output.document.CdOutputDto;
+import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -20,5 +22,10 @@ public class Cd extends Document{
               String genre,
               int publicationYear) {
         super(title, author, genre, publicationYear);
+    }
+
+    @Override
+    public DocumentOutputDto toOutputDto() {
+        return new CdOutputDto(id,title,author,genre,publicationYear,copies);
     }
 }

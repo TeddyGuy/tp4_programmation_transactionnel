@@ -8,10 +8,15 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class BookInputDto extends DocumentInputDto {
     private String publisher;
     private int pages;
+
+    public BookInputDto(String title, String author, String genre, String publisher, int publicationYear, int pages) {
+        super(title, author, genre, publicationYear);
+        this.publisher = publisher;
+        this.pages = pages;
+    }
 
     @Override
     public Document toDocument(){

@@ -1,5 +1,6 @@
 package com.javatown.backend.model.document;
 
+import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -31,4 +32,6 @@ public abstract class Document {
         this.genre = genre;
         this.publicationYear = publicationYear;
     }
+
+    public abstract DocumentOutputDto toOutputDto();
 }

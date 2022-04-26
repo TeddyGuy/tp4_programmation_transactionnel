@@ -38,7 +38,7 @@ public class ClientService {
         List<ClientOutputDto> clientOutputDtos = new ArrayList<>();
 
         for (Client client: clients) {
-            clientOutputDtos.add(client.toDTO());
+            clientOutputDtos.add(client.toOutputDto());
         }
 
         return clientOutputDtos;
@@ -47,13 +47,13 @@ public class ClientService {
     public ClientOutputDto saveClient(ClientInputDto form){
         String missingFields = getMissingFields(form);
         if (!missingFields.isEmpty()) throw new ClientAttributesMissingException(missingFields);
-        return clientRepository.save(form.toClient()).toDTO();
+        return clientRepository.save(form.toClient()).toOutputDto();
     }
 
     public ClientOutputDto getClientById(long id){
         Optional<Client> clientOptional = clientRepository.findById(id);
         if(clientOptional.isEmpty()) throw new ClientNotFoundException(id);
-        return clientOptional.get().toDTO();
+        return clientOptional.get().toOutputDto();
     }
 
     public void deleteClientById(long id){
@@ -65,7 +65,7 @@ public class ClientService {
         }
     }
 
-    public ClientOutputDto replaceClientById(long id, ClientInputDto form){
+    public ClientOutputDto updateClientById(long id, ClientInputDto form){
         Optional<Client> clientOptional = clientRepository.findById(id);
         if(clientOptional.isEmpty()) throw new ClientNotFoundException(id);
 
@@ -73,7 +73,7 @@ public class ClientService {
 
         client.update(form);
 
-        return clientRepository.save(client).toDTO();
+        return clientRepository.save(client).toOutputDto();
     }
 
     private String getMissingFields(ClientInputDto form){
