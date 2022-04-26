@@ -18,7 +18,7 @@ public class Client {
     private String email;
     private String firstName;
     private String lastName;
-    
+
     //@OneToMany(mappedBy = "client")
     //private List<DocumentLoan> borrowingHistory = new ArrayList();
 
