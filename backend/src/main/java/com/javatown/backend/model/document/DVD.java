@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @Entity
 @Data
 @NoArgsConstructor
-@DiscriminatorValue("CD")
+@DiscriminatorValue("DVD")
 @EqualsAndHashCode(callSuper = true)
 public class DVD extends Document{
     public final static int BORROW_TIME_IN_WEEK = 1;

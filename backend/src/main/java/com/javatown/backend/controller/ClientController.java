@@ -1,11 +1,31 @@
 package com.javatown.backend.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.javatown.backend.dto.ClientDTO;
+import com.javatown.backend.dto.ClientForm;
+import com.javatown.backend.service.ClientService;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
+    ClientService clientService;
+
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
+
+    @PostMapping
+    public ClientDTO postClients(@RequestBody ClientForm clientForm){
+        return clientService.saveClient(clientForm);
+    }
+
+    @GetMapping
+    public List<ClientDTO> getClients(){
+        return clientService.getAllClients();
+    }
+
+
 }

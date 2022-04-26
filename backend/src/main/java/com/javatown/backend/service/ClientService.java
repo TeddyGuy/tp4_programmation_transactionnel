@@ -1,7 +1,13 @@
 package com.javatown.backend.service;
 
+import com.javatown.backend.dto.ClientDTO;
+import com.javatown.backend.dto.ClientForm;
+import com.javatown.backend.model.Client;
 import com.javatown.backend.repository.*;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ClientService {
@@ -23,4 +29,18 @@ public class ClientService {
         this.dvdRepository = dvdRepository;
     }
 
+    public List<ClientDTO> getAllClients() {
+        List<Client> clients = clientRepository.findAll();
+        List<ClientDTO> clientDTOS = new ArrayList<>();
+
+        for (Client client: clients) {
+            clientDTOS.add(client.toDTO());
+        }
+
+        return clientDTOS;
+    }
+
+    public ClientDTO saveClient(ClientForm form){
+        return clientRepository.save(form.toClient()).toDTO();
+    }
 }

@@ -1,5 +1,6 @@
 package com.javatown.backend.model;
 
+import com.javatown.backend.dto.ClientDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,5 +26,9 @@ public class Client {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public ClientDTO toDTO(){
+        return new ClientDTO(id,email,firstName,lastName);
     }
 }
