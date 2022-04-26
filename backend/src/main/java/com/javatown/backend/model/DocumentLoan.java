@@ -1,6 +1,8 @@
 package com.javatown.backend.model;
 
 import com.javatown.backend.model.document.Book;
+import com.javatown.backend.model.document.CD;
+import com.javatown.backend.model.document.DVD;
 import com.javatown.backend.model.document.Document;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,11 +41,11 @@ public class DocumentLoan {
         if (document instanceof Book){
             this.expectedReturnDate = lendingDate.plusWeeks(Book.BORROW_TIME_IN_WEEKS);
         }
-//        else if (document instanceof DVD){
-//            this.expectedReturnDate = lendingDate.plusWeeks(DVD.BORROW_TIME_IN_WEEK);
-//        }
-//        else {
-//            this.expectedReturnDate = lendingDate.plusWeeks(CD.BORROW_TIME_IN_WEEK);
-//        }
+        else if (document instanceof DVD){
+            this.expectedReturnDate = lendingDate.plusWeeks(DVD.BORROW_TIME_IN_WEEK);
+        }
+        else {
+            this.expectedReturnDate = lendingDate.plusWeeks(CD.BORROW_TIME_IN_WEEK);
+        }
     }
 }
