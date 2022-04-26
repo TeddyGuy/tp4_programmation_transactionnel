@@ -22,4 +22,13 @@ public class BookInputDto extends DocumentInputDto {
     public Document toDocument(){
         return new Book(title,author,genre,publicationYear,publisher,pages);
     }
+
+    @Override
+    public String getMissingFields() {
+        String missingFields = super.getMissingFields();
+
+        if(publisher == null || publisher.isBlank()) missingFields += "publisher, ";
+        
+        return missingFields;
+    }
 }

@@ -44,10 +44,10 @@ public class ClientService {
         return clientOutputDtos;
     }
 
-    public ClientOutputDto saveClient(ClientInputDto form){
-        String missingFields = getMissingFields(form);
+    public ClientOutputDto saveClient(ClientInputDto clientInputDto){
+        String missingFields = clientInputDto.getMissingFields();
         if (!missingFields.isEmpty()) throw new ClientAttributesMissingException(missingFields);
-        return clientRepository.save(form.toClient()).toOutputDto();
+        return clientRepository.save(clientInputDto.toClient()).toOutputDto();
     }
 
     public ClientOutputDto getClientById(long id){
@@ -65,24 +65,14 @@ public class ClientService {
         }
     }
 
-    public ClientOutputDto updateClientById(long id, ClientInputDto form){
+    public ClientOutputDto updateClientById(long id, ClientInputDto clientInputDto){
         Optional<Client> clientOptional = clientRepository.findById(id);
         if(clientOptional.isEmpty()) throw new ClientNotFoundException(id);
 
         Client client = clientOptional.get();
 
-        client.update(form);
+        client.update(clientInputDto);
 
         return clientRepository.save(client).toOutputDto();
-    }
-
-    private String getMissingFields(ClientInputDto form){
-        String missingFields = "";
-
-        if(form.getEmail() == null || form.getEmail().isBlank()) missingFields += "email, ";
-        if(form.getFirstName() == null || form.getFirstName().isBlank()) missingFields += "firstName, ";
-        if(form.getLastName() == null || form.getLastName().isBlank()) missingFields += "lastName";
-
-        return missingFields;
     }
 }

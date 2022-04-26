@@ -5,11 +5,14 @@ import com.javatown.backend.dto.input.document.BookInputDto;
 import com.javatown.backend.dto.input.document.CdInputDto;
 import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.input.document.DvdInputDto;
+import com.javatown.backend.model.document.Book;
 import com.javatown.backend.service.ClientService;
 import com.javatown.backend.service.DocumentService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class BackendApplication implements CommandLineRunner {

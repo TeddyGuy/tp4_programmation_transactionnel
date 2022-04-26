@@ -3,7 +3,11 @@ package com.javatown.backend.service;
 import com.javatown.backend.dto.input.document.BookInputDto;
 import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
+import com.javatown.backend.exception.DocumentAttributeMissingException;
+import com.javatown.backend.model.document.Book;
+import com.javatown.backend.model.document.Cd;
 import com.javatown.backend.model.document.Document;
+import com.javatown.backend.model.document.Dvd;
 import com.javatown.backend.repository.*;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +33,8 @@ public class DocumentService {
     }
 
     public DocumentOutputDto saveDocument (DocumentInputDto inputDto){
+        String missingFields = inputDto.getMissingFields();
+        if(!missingFields.isEmpty()) throw new DocumentAttributeMissingException(missingFields);
         return documentRepository.save(inputDto.toDocument()).toOutputDto();
     }
 

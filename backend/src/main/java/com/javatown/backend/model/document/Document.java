@@ -13,6 +13,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name="documentType", discriminatorType = DiscriminatorType.STRING)
 
 public abstract class Document {
+    public final static int BORROW_TIME_IN_WEEK = 1;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,4 +35,13 @@ public abstract class Document {
     }
 
     public abstract DocumentOutputDto toOutputDto();
+
+    public int getBorrowTimeInWeeks(){
+
+        if (this instanceof Book) return Book.BORROW_TIME_IN_WEEKS;
+        if (this instanceof Dvd) return Dvd.BORROW_TIME_IN_WEEK;
+        if (this instanceof Cd) return Cd.BORROW_TIME_IN_WEEK;
+
+        return Document.BORROW_TIME_IN_WEEK;
+    }
 }

@@ -38,14 +38,6 @@ public class DocumentLoan {
         this.document = document;
         this.client = client;
         this.lendingDate = LocalDate.now();
-        if (document instanceof Book){
-            this.expectedReturnDate = lendingDate.plusWeeks(Book.BORROW_TIME_IN_WEEKS);
-        }
-        else if (document instanceof Dvd){
-            this.expectedReturnDate = lendingDate.plusWeeks(Dvd.BORROW_TIME_IN_WEEK);
-        }
-        else {
-            this.expectedReturnDate = lendingDate.plusWeeks(Cd.BORROW_TIME_IN_WEEK);
-        }
+        this.expectedReturnDate = this.lendingDate.plusWeeks(document.getBorrowTimeInWeeks());
     }
 }

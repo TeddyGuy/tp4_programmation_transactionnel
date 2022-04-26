@@ -15,4 +15,15 @@ public abstract class DocumentInputDto {
     protected int publicationYear;
 
     public abstract Document toDocument();
+
+    public String getMissingFields(){
+        String missingFields = "";
+
+        if(title == null || title.isBlank()) missingFields += "title, ";
+        if(author == null || author.isBlank()) missingFields += "author, ";
+        if(genre == null || genre.isBlank()) missingFields += "genre, ";
+        if(publicationYear == 0) missingFields += "publicationYear ";
+
+        return missingFields;
+    }
 }

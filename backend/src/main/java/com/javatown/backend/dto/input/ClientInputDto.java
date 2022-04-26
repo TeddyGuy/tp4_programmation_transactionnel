@@ -16,4 +16,14 @@ public class ClientInputDto {
     public Client toClient(){
         return new Client(email,firstName,lastName);
     }
+
+    public String getMissingFields(){
+        String missingFields = "";
+
+        if(email == null || email.isBlank()) missingFields += "email, ";
+        if(firstName == null || firstName.isBlank()) missingFields += "firstName, ";
+        if(lastName == null || lastName.isBlank()) missingFields += "lastName";
+
+        return missingFields;
+    }
 }

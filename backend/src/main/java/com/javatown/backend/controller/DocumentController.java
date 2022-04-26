@@ -1,10 +1,10 @@
 package com.javatown.backend.controller;
 
+import com.javatown.backend.dto.input.document.BookInputDto;
+import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import com.javatown.backend.service.DocumentService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +20,10 @@ public class DocumentController {
     @GetMapping
     public List<DocumentOutputDto> getAllDocuments(){
         return documentService.getAllDocuments();
+    }
+
+    @PostMapping("/books")
+    public DocumentOutputDto newBook(@RequestBody BookInputDto bookInputDto){
+        return documentService.saveDocument(bookInputDto);
     }
 }
