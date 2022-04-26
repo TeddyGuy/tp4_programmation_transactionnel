@@ -31,5 +31,10 @@ public class ClientController {
     public ClientDTO getClientById(@PathVariable long id) {
         return clientService.getClientById(id);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable long id){
+        clientService.deleteClientById(id);
+    }
 }
 

@@ -6,6 +6,7 @@ import com.javatown.backend.exception.ClientAttributesMissingException;
 import com.javatown.backend.exception.ClientNotFoundException;
 import com.javatown.backend.model.Client;
 import com.javatown.backend.repository.*;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -53,6 +54,15 @@ public class ClientService {
         Optional<Client> clientOptional = clientRepository.findById(id);
         if(clientOptional.isEmpty()) throw new ClientNotFoundException(id);
         return clientOptional.get().toDTO();
+    }
+
+    public void deleteClientById(long id){
+        try{
+            clientRepository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException e){
+            throw new ClientNotFoundException(id);
+        }
     }
 
     private String getMissingFields(ClientForm form){
