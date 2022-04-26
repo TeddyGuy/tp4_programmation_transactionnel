@@ -18,7 +18,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ClientDTO postClients(@RequestBody ClientForm clientForm) {
+    public ClientDTO newClients(@RequestBody ClientForm clientForm) {
         return clientService.saveClient(clientForm);
     }
 
@@ -35,6 +35,11 @@ public class ClientController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable long id){
         clientService.deleteClientById(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ClientDTO replaceClient(@PathVariable long id, @RequestBody ClientForm clientForm){
+        return clientService.replaceClientById(id,clientForm);
     }
 }
 

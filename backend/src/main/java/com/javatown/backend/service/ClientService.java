@@ -65,6 +65,17 @@ public class ClientService {
         }
     }
 
+    public ClientDTO replaceClientById(long id, ClientForm form){
+        Optional<Client> clientOptional = clientRepository.findById(id);
+        if(clientOptional.isEmpty()) throw new ClientNotFoundException(id);
+
+        Client client = clientOptional.get();
+
+        client.update(form);
+
+        return clientRepository.save(client).toDTO();
+    }
+
     private String getMissingFields(ClientForm form){
         String missingFields = "";
 
