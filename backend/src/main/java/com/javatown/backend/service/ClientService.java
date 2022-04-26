@@ -1,7 +1,7 @@
 package com.javatown.backend.service;
 
-import com.javatown.backend.dto.ClientDTO;
-import com.javatown.backend.dto.ClientForm;
+import com.javatown.backend.dto.output.ClientOutputDto;
+import com.javatown.backend.dto.input.ClientInputDto;
 import com.javatown.backend.exception.ClientAttributesMissingException;
 import com.javatown.backend.exception.ClientNotFoundException;
 import com.javatown.backend.model.Client;
@@ -18,14 +18,14 @@ public class ClientService {
     private ClientRepository clientRepository;
     private DocumentLoanRepository documentLoanRepository;
     private BookRepository bookRepository;
-    private CDRepository cdRepository;
-    private DVDRepository dvdRepository;
+    private CdRepository cdRepository;
+    private DvdRepository dvdRepository;
 
     public ClientService(ClientRepository clientRepository,
                         DocumentLoanRepository documentLoanRepository,
                         BookRepository bookRepository,
-                        CDRepository cdRepository,
-                        DVDRepository dvdRepository) {
+                        CdRepository cdRepository,
+                        DvdRepository dvdRepository) {
         this.clientRepository = clientRepository;
         this.documentLoanRepository = documentLoanRepository;
         this.bookRepository = bookRepository;
@@ -33,24 +33,24 @@ public class ClientService {
         this.dvdRepository = dvdRepository;
     }
 
-    public List<ClientDTO> getAllClients() {
+    public List<ClientOutputDto> getAllClients() {
         List<Client> clients = clientRepository.findAll();
-        List<ClientDTO> clientDTOS = new ArrayList<>();
+        List<ClientOutputDto> clientOutputDtos = new ArrayList<>();
 
         for (Client client: clients) {
-            clientDTOS.add(client.toDTO());
+            clientOutputDtos.add(client.toDTO());
         }
 
-        return clientDTOS;
+        return clientOutputDtos;
     }
 
-    public ClientDTO saveClient(ClientForm form){
+    public ClientOutputDto saveClient(ClientInputDto form){
         String missingFields = getMissingFields(form);
         if (!missingFields.isEmpty()) throw new ClientAttributesMissingException(missingFields);
         return clientRepository.save(form.toClient()).toDTO();
     }
 
-    public ClientDTO getClientById(long id){
+    public ClientOutputDto getClientById(long id){
         Optional<Client> clientOptional = clientRepository.findById(id);
         if(clientOptional.isEmpty()) throw new ClientNotFoundException(id);
         return clientOptional.get().toDTO();
@@ -65,7 +65,7 @@ public class ClientService {
         }
     }
 
-    public ClientDTO replaceClientById(long id, ClientForm form){
+    public ClientOutputDto replaceClientById(long id, ClientInputDto form){
         Optional<Client> clientOptional = clientRepository.findById(id);
         if(clientOptional.isEmpty()) throw new ClientNotFoundException(id);
 
@@ -76,7 +76,7 @@ public class ClientService {
         return clientRepository.save(client).toDTO();
     }
 
-    private String getMissingFields(ClientForm form){
+    private String getMissingFields(ClientInputDto form){
         String missingFields = "";
 
         if(form.getEmail() == null || form.getEmail().isBlank()) missingFields += "email, ";

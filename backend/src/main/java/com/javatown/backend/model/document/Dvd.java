@@ -10,15 +10,15 @@ import javax.persistence.Entity;
 @Entity
 @Data
 @NoArgsConstructor
-@DiscriminatorValue("CD")
+@DiscriminatorValue("dvd")
 @EqualsAndHashCode(callSuper = true)
-public class CD extends Document{
-    public final static int BORROW_TIME_IN_WEEK = 2;
+public class Dvd extends Document{
+    public final static int BORROW_TIME_IN_WEEK = 1;
 
-    public CD(String title,
-              String author,
-              String genre,
-              int publicationYear) {
+    public Dvd(String title,
+               String author,
+               String genre,
+               int publicationYear) {
         super(title, author, genre, publicationYear);
     }
 }

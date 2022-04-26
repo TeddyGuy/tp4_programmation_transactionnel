@@ -1,7 +1,7 @@
 package com.javatown.backend.model;
 
-import com.javatown.backend.dto.ClientDTO;
-import com.javatown.backend.dto.ClientForm;
+import com.javatown.backend.dto.output.ClientOutputDto;
+import com.javatown.backend.dto.input.ClientInputDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,11 +29,11 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public ClientDTO toDTO(){
-        return new ClientDTO(id,email,firstName,lastName);
+    public ClientOutputDto toDTO(){
+        return new ClientOutputDto(id,email,firstName,lastName);
     }
 
-    public void update(ClientForm form){
+    public void update(ClientInputDto form){
         if(!(form.getEmail() == null || form.getEmail().isBlank())) this.email = form.getEmail();
         if(!(form.getFirstName() == null || form.getFirstName().isBlank())) this.firstName = form.getFirstName();
         if(!(form.getLastName() == null || form.getLastName().isBlank())) this.lastName = form.getLastName();

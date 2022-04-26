@@ -1,7 +1,7 @@
 package com.javatown.backend.controller;
 
-import com.javatown.backend.dto.ClientDTO;
-import com.javatown.backend.dto.ClientForm;
+import com.javatown.backend.dto.output.ClientOutputDto;
+import com.javatown.backend.dto.input.ClientInputDto;
 import com.javatown.backend.service.ClientService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,17 +18,17 @@ public class ClientController {
     }
 
     @PostMapping
-    public ClientDTO newClients(@RequestBody ClientForm clientForm) {
-        return clientService.saveClient(clientForm);
+    public ClientOutputDto newClients(@RequestBody ClientInputDto clientInputDto) {
+        return clientService.saveClient(clientInputDto);
     }
 
     @GetMapping
-    public List<ClientDTO> getClients() {
+    public List<ClientOutputDto> getClients() {
         return clientService.getAllClients();
     }
 
     @GetMapping("/{id}")
-    public ClientDTO getClientById(@PathVariable long id) {
+    public ClientOutputDto getClientById(@PathVariable long id) {
         return clientService.getClientById(id);
     }
 
@@ -38,8 +38,8 @@ public class ClientController {
     }
 
     @PatchMapping("/{id}")
-    public ClientDTO replaceClient(@PathVariable long id, @RequestBody ClientForm clientForm){
-        return clientService.replaceClientById(id,clientForm);
+    public ClientOutputDto replaceClient(@PathVariable long id, @RequestBody ClientInputDto clientInputDto){
+        return clientService.replaceClientById(id, clientInputDto);
     }
 }
 

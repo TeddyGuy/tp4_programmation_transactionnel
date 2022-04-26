@@ -10,12 +10,12 @@ import javax.persistence.Entity;
 @Entity
 @Data
 @NoArgsConstructor
-@DiscriminatorValue("DVD")
+@DiscriminatorValue("cd")
 @EqualsAndHashCode(callSuper = true)
-public class DVD extends Document{
-    public final static int BORROW_TIME_IN_WEEK = 1;
+public class Cd extends Document{
+    public final static int BORROW_TIME_IN_WEEK = 2;
 
-    public DVD(String title,
+    public Cd(String title,
               String author,
               String genre,
               int publicationYear) {

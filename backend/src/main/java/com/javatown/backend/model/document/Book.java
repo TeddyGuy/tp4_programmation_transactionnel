@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @Entity
 @Data
 @NoArgsConstructor
-@DiscriminatorValue("Book")
+@DiscriminatorValue("book")
 @EqualsAndHashCode(callSuper = true)
 public class Book extends Document{
     public final static int BORROW_TIME_IN_WEEKS = 3;

@@ -1,6 +1,6 @@
 package com.javatown.backend;
 
-import com.javatown.backend.dto.ClientForm;
+import com.javatown.backend.dto.input.ClientInputDto;
 import com.javatown.backend.service.ClientService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,11 +20,11 @@ public class BackendApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args){
-        ClientForm client1 = new ClientForm("joe@gmail.com","Joe","Biden");
-        ClientForm client2 = new ClientForm("donald@gmail.com","Donald","Trump");
-        ClientForm client3 = new ClientForm("obama@gmail.com","Obama","Barrack");
-        ClientForm client4 = new ClientForm("abraham@gmail.com","Abraham","Lincoln");
-        ClientForm client5 = new ClientForm("george@gmail.com","George","Bush");
+        ClientInputDto client1 = new ClientInputDto("joe@gmail.com","Joe","Biden");
+        ClientInputDto client2 = new ClientInputDto("donald@gmail.com","Donald","Trump");
+        ClientInputDto client3 = new ClientInputDto("obama@gmail.com","Obama","Barrack");
+        ClientInputDto client4 = new ClientInputDto("abraham@gmail.com","Abraham","Lincoln");
+        ClientInputDto client5 = new ClientInputDto("george@gmail.com","George","Bush");
         clientService.saveClient(client1);
         clientService.saveClient(client2);
         clientService.saveClient(client3);

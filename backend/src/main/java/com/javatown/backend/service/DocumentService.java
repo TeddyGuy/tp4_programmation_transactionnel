@@ -8,13 +8,13 @@ public class DocumentService {
 
     private DocumentRepository documentRepository;
     private BookRepository bookRepository;
-    private CDRepository cdRepository;
-    private DVDRepository dvdRepository;
+    private CdRepository cdRepository;
+    private DvdRepository dvdRepository;
 
     public DocumentService(DocumentRepository documentRepository,
                            BookRepository bookRepository,
-                           CDRepository cdRepository,
-                           DVDRepository dvdRepository) {
+                           CdRepository cdRepository,
+                           DvdRepository dvdRepository) {
         this.documentRepository = documentRepository;
         this.bookRepository = bookRepository;
         this.cdRepository = cdRepository;

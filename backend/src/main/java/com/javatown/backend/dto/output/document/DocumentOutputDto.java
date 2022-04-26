@@ -1,4 +1,4 @@
-package com.javatown.backend.dto.document;
+package com.javatown.backend.dto.output.document;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class DocumentDTO {
+public abstract class DocumentOutputDto {
     private long id;
     private String type;
     private String title;

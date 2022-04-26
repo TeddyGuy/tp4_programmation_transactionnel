@@ -1,4 +1,4 @@
-package com.javatown.backend.dto;
+package com.javatown.backend.dto.input;
 
 import com.javatown.backend.model.Client;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientForm {
+public class ClientInputDto {
     private String email;
     private String firstName;
     private String lastName;

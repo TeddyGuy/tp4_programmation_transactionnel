@@ -15,12 +15,12 @@ public abstract class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private String title;
-    private String author;
-    private String genre;
-    private int publicationYear;
-    private int copies = 1;
+    protected long id;
+    protected String title;
+    protected String author;
+    protected String genre;
+    protected int publicationYear;
+    protected int copies = 1;
 
     public Document(String title,
                     String author,
