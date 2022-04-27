@@ -21,6 +21,11 @@ public class DocumentController {
         return documentService.getAllDocuments();
     }
 
+    @GetMapping("/{id}")
+    public DocumentOutputDto getDocumentById(@PathVariable long id){
+        return documentService.getDocumentById(id);
+    }
+
     @GetMapping("/books")
     public List<DocumentOutputDto> getAllBooks(){
         return documentService.getAllBooks();

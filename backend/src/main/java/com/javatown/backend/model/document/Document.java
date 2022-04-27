@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -35,6 +37,16 @@ public abstract class Document {
     }
 
     public abstract DocumentOutputDto toOutputDto();
+
+    public static <T extends Document> List<DocumentOutputDto> toDocumentOutputDtoList(List<T> documents){
+        List<DocumentOutputDto> documentOutputDtos = new ArrayList<>();
+
+        for (T document : documents) {
+            documentOutputDtos.add(document.toOutputDto());
+        }
+
+        return documentOutputDtos;
+    }
 
     public int getBorrowTimeInWeeks(){
 

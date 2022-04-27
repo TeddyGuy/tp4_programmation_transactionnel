@@ -3,13 +3,12 @@ package com.javatown.backend.service;
 import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import com.javatown.backend.exception.DocumentAttributeMissingException;
-import com.javatown.backend.model.document.Book;
+import com.javatown.backend.exception.DocumentNotFoundException;
 import com.javatown.backend.model.document.Document;
 import com.javatown.backend.repository.*;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DocumentService {
@@ -35,25 +34,17 @@ public class DocumentService {
         return documentRepository.save(inputDto.toDocument()).toOutputDto();
     }
 
+    public DocumentOutputDto getDocumentById(long id){
+        Optional<Document> documentOptional = documentRepository.findById(id);
+        if(documentOptional.isEmpty()) throw new DocumentNotFoundException(id);
+        return documentOptional.get().toOutputDto();
+    }
+
     public List<DocumentOutputDto> getAllDocuments(){
-        List<Document> documents = documentRepository.findAll();
-        List<DocumentOutputDto> documentOutputDtos = new ArrayList<>();
-
-        for (Document document : documents) {
-            documentOutputDtos.add(document.toOutputDto());
-        }
-
-        return documentOutputDtos;
+        return Document.toDocumentOutputDtoList(documentRepository.findAll());
     }
 
     public List<DocumentOutputDto> getAllBooks(){
-        List<Book> books = bookRepository.findAll();
-        List<DocumentOutputDto> bookOutputDtos = new ArrayList<>();
-
-        for (Book book : books) {
-            bookOutputDtos.add(book.toOutputDto());
-        }
-
-        return bookOutputDtos;
+        return Document.toDocumentOutputDtoList(bookRepository.findAll());
     }
 }
