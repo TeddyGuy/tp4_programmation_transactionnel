@@ -1,13 +1,10 @@
 package com.javatown.backend.service;
 
-import com.javatown.backend.dto.input.document.BookInputDto;
 import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import com.javatown.backend.exception.DocumentAttributeMissingException;
 import com.javatown.backend.model.document.Book;
-import com.javatown.backend.model.document.Cd;
 import com.javatown.backend.model.document.Document;
-import com.javatown.backend.model.document.Dvd;
 import com.javatown.backend.repository.*;
 import org.springframework.stereotype.Component;
 
@@ -42,10 +39,21 @@ public class DocumentService {
         List<Document> documents = documentRepository.findAll();
         List<DocumentOutputDto> documentOutputDtos = new ArrayList<>();
 
-        for (Document document: documents) {
+        for (Document document : documents) {
             documentOutputDtos.add(document.toOutputDto());
         }
 
         return documentOutputDtos;
+    }
+
+    public List<DocumentOutputDto> getAllBooks(){
+        List<Book> books = bookRepository.findAll();
+        List<DocumentOutputDto> bookOutputDtos = new ArrayList<>();
+
+        for (Book book : books) {
+            bookOutputDtos.add(book.toOutputDto());
+        }
+
+        return bookOutputDtos;
     }
 }

@@ -1,7 +1,6 @@
 package com.javatown.backend.controller;
 
 import com.javatown.backend.dto.input.document.BookInputDto;
-import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import com.javatown.backend.service.DocumentService;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +19,11 @@ public class DocumentController {
     @GetMapping
     public List<DocumentOutputDto> getAllDocuments(){
         return documentService.getAllDocuments();
+    }
+
+    @GetMapping("/books")
+    public List<DocumentOutputDto> getAllBooks(){
+        return documentService.getAllBooks();
     }
 
     @PostMapping("/books")
