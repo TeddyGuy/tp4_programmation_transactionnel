@@ -56,4 +56,9 @@ public class DocumentController {
     public DocumentOutputDto newCd(@RequestBody CdInputDto cdInputDto){
         return documentService.saveDocument(cdInputDto);
     }
+
+    @PatchMapping("/cds/{id}")
+    public DocumentOutputDto updateCdById(@PathVariable long id, @RequestBody CdInputDto cdInputDto){
+        return documentService.updateDocument(id,cdInputDto);
+    }
 }
