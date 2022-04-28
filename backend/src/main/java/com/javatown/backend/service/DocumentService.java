@@ -1,22 +1,26 @@
 package com.javatown.backend.service;
 
+import com.javatown.backend.dto.input.document.BookInputDto;
+import com.javatown.backend.dto.input.document.CdInputDto;
 import com.javatown.backend.dto.input.document.DocumentInputDto;
+import com.javatown.backend.dto.input.document.DvdInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
+import com.javatown.backend.exception.ClientNotFoundException;
 import com.javatown.backend.exception.DocumentAttributeMissingException;
 import com.javatown.backend.exception.DocumentNotFoundException;
 import com.javatown.backend.model.document.Document;
 import com.javatown.backend.repository.*;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class DocumentService {
 
-    private DocumentRepository documentRepository;
-    private BookRepository bookRepository;
-    private CdRepository cdRepository;
-    private DvdRepository dvdRepository;
+    final private DocumentRepository documentRepository;
+    final private BookRepository bookRepository;
+    final private CdRepository cdRepository;
+    final private DvdRepository dvdRepository;
 
     public DocumentService(DocumentRepository documentRepository,
                            BookRepository bookRepository,
@@ -35,9 +39,18 @@ public class DocumentService {
     }
 
     public DocumentOutputDto getDocumentById(long id){
-        Optional<Document> documentOptional = documentRepository.findById(id);
-        if(documentOptional.isEmpty()) throw new DocumentNotFoundException(id);
-        return documentOptional.get().toOutputDto();
+        Document document = documentRepository.findById(id)
+                .orElseThrow(() -> new DocumentNotFoundException(id));
+        return document.toOutputDto();
+    }
+
+    public void deleteDocumentById(long id){
+        try{
+            documentRepository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException e){
+            throw new DocumentNotFoundException(id);
+        }
     }
 
     public List<DocumentOutputDto> getAllDocuments(){
@@ -48,13 +61,19 @@ public class DocumentService {
         return Document.toDocumentOutputDtoList(bookRepository.findAll());
     }
 
-    public DocumentOutputDto updateDocument(long id, DocumentInputDto documentInputDto){
-        Optional<Document> documentOptional = documentRepository.findById(id);
-        if(documentOptional.isEmpty()) throw new DocumentNotFoundException(id);
+    public DocumentOutputDto updateDocument(long id, DocumentInputDto inputDto){
+        Document document = null;
 
-        Document document = documentOptional.get();
+        if(inputDto instanceof BookInputDto)
+            document = bookRepository.findById(id).orElseThrow(() -> new DocumentNotFoundException("book",id));
+        if(inputDto instanceof CdInputDto)
+            document = cdRepository.findById(id).orElseThrow(() -> new DocumentNotFoundException("cd", id));
+        if(inputDto instanceof DvdInputDto)
+            document = dvdRepository.findById(id).orElseThrow(() -> new DocumentNotFoundException("dvd", id));
 
-        document.update(documentInputDto);
+        if(document == null) throw new DocumentNotFoundException(id);
+
+        document.update(inputDto);
 
         return documentRepository.save(document).toOutputDto();
     }
