@@ -1,6 +1,7 @@
 package com.javatown.backend.controller;
 
 import com.javatown.backend.dto.input.document.BookInputDto;
+import com.javatown.backend.dto.input.document.CdInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import com.javatown.backend.service.DocumentService;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +50,10 @@ public class DocumentController {
     @GetMapping("/cds")
     public List<DocumentOutputDto> getAllCds(){
         return documentService.getAllCds();
+    }
+
+    @PostMapping("/cds")
+    public DocumentOutputDto newCd(@RequestBody CdInputDto cdInputDto){
+        return documentService.saveDocument(cdInputDto);
     }
 }
