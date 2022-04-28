@@ -5,7 +5,6 @@ import com.javatown.backend.dto.input.document.CdInputDto;
 import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.input.document.DvdInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
-import com.javatown.backend.exception.ClientNotFoundException;
 import com.javatown.backend.exception.DocumentAttributeMissingException;
 import com.javatown.backend.exception.DocumentNotFoundException;
 import com.javatown.backend.model.document.Document;
@@ -60,6 +59,11 @@ public class DocumentService {
     public List<DocumentOutputDto> getAllBooks(){
         return Document.toDocumentOutputDtoList(bookRepository.findAll());
     }
+
+    public List<DocumentOutputDto> getAllCds(){
+        return Document.toDocumentOutputDtoList(cdRepository.findAll());
+    }
+
 
     public DocumentOutputDto updateDocument(long id, DocumentInputDto inputDto){
         Document document = null;

@@ -31,11 +31,6 @@ public class DocumentController {
         documentService.deleteDocumentById(id);
     }
 
-    @PatchMapping("/books/{id}")
-    public DocumentOutputDto updateBookById(@PathVariable long id, @RequestBody BookInputDto bookInputDto){
-        return documentService.updateDocument(id,bookInputDto);
-    }
-
     @GetMapping("/books")
     public List<DocumentOutputDto> getAllBooks(){
         return documentService.getAllBooks();
@@ -44,5 +39,15 @@ public class DocumentController {
     @PostMapping("/books")
     public DocumentOutputDto newBook(@RequestBody BookInputDto bookInputDto){
         return documentService.saveDocument(bookInputDto);
+    }
+
+    @PatchMapping("/books/{id}")
+    public DocumentOutputDto updateBookById(@PathVariable long id, @RequestBody BookInputDto bookInputDto){
+        return documentService.updateDocument(id,bookInputDto);
+    }
+
+    @GetMapping("/cds")
+    public List<DocumentOutputDto> getAllCds(){
+        return documentService.getAllCds();
     }
 }
