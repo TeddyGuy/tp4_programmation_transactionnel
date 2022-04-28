@@ -47,4 +47,15 @@ public class DocumentService {
     public List<DocumentOutputDto> getAllBooks(){
         return Document.toDocumentOutputDtoList(bookRepository.findAll());
     }
+
+    public DocumentOutputDto updateDocument(long id, DocumentInputDto documentInputDto){
+        Optional<Document> documentOptional = documentRepository.findById(id);
+        if(documentOptional.isEmpty()) throw new DocumentNotFoundException(id);
+
+        Document document = documentOptional.get();
+
+        document.update(documentInputDto);
+
+        return documentRepository.save(document).toOutputDto();
+    }
 }

@@ -1,5 +1,6 @@
 package com.javatown.backend.model.document;
 
+import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -46,6 +47,14 @@ public abstract class Document {
         }
 
         return documentOutputDtos;
+    }
+
+    public <T extends DocumentInputDto> void  update(T inputDto){
+        if(!(inputDto.getTitle() == null || inputDto.getTitle().isBlank())) this.title = inputDto.getTitle();
+        if(!(inputDto.getAuthor() == null || inputDto.getAuthor().isBlank())) this.author = inputDto.getAuthor();
+        if(!(inputDto.getGenre() == null || inputDto.getGenre().isBlank())) this.genre = inputDto.getGenre();
+        if(!(inputDto.getPublicationYear() <= 0)) this.publicationYear = inputDto.getPublicationYear();
+        if(!(inputDto.getCopies() <= 0)) this.copies = inputDto.getCopies();
     }
 
     public int getBorrowTimeInWeeks(){

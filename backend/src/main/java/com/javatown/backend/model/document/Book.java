@@ -1,6 +1,8 @@
 package com.javatown.backend.model.document;
 
 
+import com.javatown.backend.dto.input.document.BookInputDto;
+import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.output.document.BookOutputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import lombok.Data;
@@ -29,6 +31,12 @@ public class Book extends Document{
         super(title, author, genre, publicationYear);
         this.publisher = publisher;
         this.pages = pages;
+    }
+
+    public void update(BookInputDto inputDto) {
+        super.update(inputDto);
+        if(!(inputDto.getPublisher() == null || inputDto.getPublisher().isBlank())) this.publisher = inputDto.getPublisher();
+        if(!(inputDto.getPages() <= 0)) this.pages = inputDto.getPages();
     }
 
     @Override

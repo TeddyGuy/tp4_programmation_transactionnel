@@ -1,6 +1,7 @@
 package com.javatown.backend.controller;
 
 import com.javatown.backend.dto.input.document.BookInputDto;
+import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import com.javatown.backend.service.DocumentService;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,11 @@ public class DocumentController {
     @GetMapping("/{id}")
     public DocumentOutputDto getDocumentById(@PathVariable long id){
         return documentService.getDocumentById(id);
+    }
+
+    @PatchMapping("/books/{id}")
+    public DocumentOutputDto updateBookById(@PathVariable long id, @RequestBody BookInputDto bookInputDto){
+        return documentService.updateDocument(id,bookInputDto);
     }
 
     @GetMapping("/books")

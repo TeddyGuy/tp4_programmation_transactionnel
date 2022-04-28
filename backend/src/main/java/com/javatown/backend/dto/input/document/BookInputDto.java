@@ -13,7 +13,17 @@ public class BookInputDto extends DocumentInputDto {
     private int pages;
 
     public BookInputDto(String title, String author, String genre, String publisher, int publicationYear, int pages) {
-        super(title, author, genre, publicationYear);
+        super(title, author, genre, publicationYear,1);
+        this.publisher = publisher;
+        this.pages = pages;
+    }
+
+    public BookInputDto(String title,
+                        String author,
+                        String genre,
+                        String publisher,
+                        int publicationYear, int pages, int copies) {
+        super(title, author, genre, publicationYear,copies);
         this.publisher = publisher;
         this.pages = pages;
     }

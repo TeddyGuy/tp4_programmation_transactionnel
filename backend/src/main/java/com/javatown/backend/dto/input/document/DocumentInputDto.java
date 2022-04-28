@@ -13,6 +13,7 @@ public abstract class DocumentInputDto {
     protected String author;
     protected String genre;
     protected int publicationYear;
+    protected int copies;
 
     public abstract Document toDocument();
 

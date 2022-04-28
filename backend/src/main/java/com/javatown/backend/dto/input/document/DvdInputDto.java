@@ -8,8 +8,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class DvdInputDto extends DocumentInputDto{
-    public DvdInputDto(String title, String author, String genre, int publicationYear) {
-        super(title, author, genre, publicationYear);
+    public DvdInputDto(String title,
+                       String author,
+                       String genre,
+                       int publicationYear) {
+        super(title, author, genre, publicationYear,1);
+    }
+
+    public DvdInputDto(String title,
+                      String author,
+                      String genre,
+                      int publicationYear,
+                      int copies) {
+        super(title, author, genre, publicationYear, copies);
     }
 
     @Override

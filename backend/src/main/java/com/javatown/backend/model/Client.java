@@ -33,9 +33,9 @@ public class Client {
         return new ClientOutputDto(id,email,firstName,lastName);
     }
 
-    public void update(ClientInputDto form){
-        if(!(form.getEmail() == null || form.getEmail().isBlank())) this.email = form.getEmail();
-        if(!(form.getFirstName() == null || form.getFirstName().isBlank())) this.firstName = form.getFirstName();
-        if(!(form.getLastName() == null || form.getLastName().isBlank())) this.lastName = form.getLastName();
+    public void update(ClientInputDto inputDto){
+        if(!(inputDto.getEmail() == null || inputDto.getEmail().isBlank())) this.email = inputDto.getEmail();
+        if(!(inputDto.getFirstName() == null || inputDto.getFirstName().isBlank())) this.firstName = inputDto.getFirstName();
+        if(!(inputDto.getLastName() == null || inputDto.getLastName().isBlank())) this.lastName = inputDto.getLastName();
     }
 }
