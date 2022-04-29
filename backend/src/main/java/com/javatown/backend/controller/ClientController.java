@@ -3,6 +3,7 @@ package com.javatown.backend.controller;
 import com.javatown.backend.dto.output.ClientOutputDto;
 import com.javatown.backend.dto.input.ClientInputDto;
 import com.javatown.backend.service.ClientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public ClientOutputDto newClients(@RequestBody ClientInputDto clientInputDto) {
         return clientService.saveClient(clientInputDto);

@@ -2,8 +2,10 @@ package com.javatown.backend.controller;
 
 import com.javatown.backend.dto.input.document.BookInputDto;
 import com.javatown.backend.dto.input.document.CdInputDto;
+import com.javatown.backend.dto.input.document.DvdInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import com.javatown.backend.service.DocumentService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +39,7 @@ public class DocumentController {
         return documentService.getAllBooks();
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/books")
     public DocumentOutputDto newBook(@RequestBody BookInputDto bookInputDto){
         return documentService.saveDocument(bookInputDto);
@@ -57,6 +60,7 @@ public class DocumentController {
         return documentService.saveDocument(cdInputDto);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PatchMapping("/cds/{id}")
     public DocumentOutputDto updateCdById(@PathVariable long id, @RequestBody CdInputDto cdInputDto){
         return documentService.updateDocument(id,cdInputDto);
@@ -65,5 +69,11 @@ public class DocumentController {
     @GetMapping("/dvds")
     public List<DocumentOutputDto> getAllDvds(){
         return documentService.getAllDvds();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/dvds")
+    public DocumentOutputDto newDvd(@RequestBody DvdInputDto dvdInputDto){
+        return documentService.saveDocument(dvdInputDto);
     }
 }
