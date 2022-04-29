@@ -76,4 +76,9 @@ public class DocumentController {
     public DocumentOutputDto newDvd(@RequestBody DvdInputDto dvdInputDto){
         return documentService.saveDocument(dvdInputDto);
     }
+
+    @PatchMapping("/dvds/{id}")
+    public DocumentOutputDto updateDvdById(@PathVariable long id, @RequestBody DvdInputDto dvdInputDto){
+        return documentService.updateDocument(id, dvdInputDto);
+    }
 }
