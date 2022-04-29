@@ -2,6 +2,7 @@ package com.javatown.backend.controller;
 
 import com.javatown.backend.dto.output.ClientOutputDto;
 import com.javatown.backend.dto.input.ClientInputDto;
+import com.javatown.backend.dto.output.DocumentLoanOutputDto;
 import com.javatown.backend.service.ClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,11 @@ public class ClientController {
     @PatchMapping("/{id}")
     public ClientOutputDto updateClient(@PathVariable long id, @RequestBody ClientInputDto clientInputDto){
         return clientService.updateClientById(id, clientInputDto);
+    }
+
+    @GetMapping("/{id}/borrowing-history")
+    public List<DocumentLoanOutputDto> getBorrowingHistory(@PathVariable long id){
+        return clientService.getBorrowingHistory(id);
     }
 }
 

@@ -1,10 +1,14 @@
 package com.javatown.backend.service;
 
+import com.javatown.backend.dto.input.DocumentLoanInputDto;
 import com.javatown.backend.dto.output.ClientOutputDto;
 import com.javatown.backend.dto.input.ClientInputDto;
+import com.javatown.backend.dto.output.DocumentLoanOutputDto;
 import com.javatown.backend.exception.ClientAttributesMissingException;
 import com.javatown.backend.exception.ClientNotFoundException;
 import com.javatown.backend.model.Client;
+import com.javatown.backend.model.DocumentLoan;
+import com.javatown.backend.model.document.Document;
 import com.javatown.backend.repository.*;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
@@ -15,22 +19,16 @@ import java.util.Optional;
 
 @Component
 public class ClientService {
-    private ClientRepository clientRepository;
-    private DocumentLoanRepository documentLoanRepository;
-    private BookRepository bookRepository;
-    private CdRepository cdRepository;
-    private DvdRepository dvdRepository;
+    final private ClientRepository clientRepository;
+    final private DocumentLoanRepository documentLoanRepository;
+    final private DocumentRepository documentRepository;
 
     public ClientService(ClientRepository clientRepository,
                         DocumentLoanRepository documentLoanRepository,
-                        BookRepository bookRepository,
-                        CdRepository cdRepository,
-                        DvdRepository dvdRepository) {
+                        DocumentRepository documentRepository) {
         this.clientRepository = clientRepository;
         this.documentLoanRepository = documentLoanRepository;
-        this.bookRepository = bookRepository;
-        this.cdRepository = cdRepository;
-        this.dvdRepository = dvdRepository;
+        this.documentRepository = documentRepository;
     }
 
     public List<ClientOutputDto> getAllClients() {
@@ -65,6 +63,20 @@ public class ClientService {
         }
     }
 
+    public DocumentLoanOutputDto borrowDocument(long id, DocumentLoanInputDto inputDto){
+        Client client = clientRepository.findByIdWithBorrowingHistory(id).orElseThrow(() -> new ClientNotFoundException(id));
+        Document document = documentRepository.findById(inputDto.getDocumentId()).orElseThrow(() -> new ClientNotFoundException(id));
+        DocumentLoan documentLoan = (inputDto.getLendingDate() == null ? new DocumentLoan(document,client) : new DocumentLoan(document,client,inputDto.getLendingDate()));
+
+        client.getBorrowingHistory().add(documentLoan);
+        document.setCopies(document.getCopies() - 1);
+
+        documentRepository.save(document);
+        clientRepository.save(client);
+
+        return documentLoanRepository.save(documentLoan).toOutPutDto();
+    }
+
     public ClientOutputDto updateClientById(long id, ClientInputDto clientInputDto){
         Optional<Client> clientOptional = clientRepository.findById(id);
         if(clientOptional.isEmpty()) throw new ClientNotFoundException(id);
@@ -74,5 +86,16 @@ public class ClientService {
         client.update(clientInputDto);
 
         return clientRepository.save(client).toOutputDto();
+    }
+
+    public List<DocumentLoanOutputDto> getBorrowingHistory(long id) {
+        List<DocumentLoan> documentLoans = documentLoanRepository.getDocumentLoansByClient_Id(id);
+        List<DocumentLoanOutputDto> outputDtos = new ArrayList<>();
+
+        for (DocumentLoan documentLoan : documentLoans){
+            outputDtos.add(documentLoan.toOutPutDto());
+        }
+
+        return outputDtos;
     }
 }

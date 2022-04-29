@@ -1,5 +1,6 @@
 package com.javatown.backend.model;
 
+import com.javatown.backend.dto.output.DocumentLoanOutputDto;
 import com.javatown.backend.model.document.Book;
 import com.javatown.backend.model.document.Cd;
 import com.javatown.backend.model.document.Dvd;
@@ -39,5 +40,16 @@ public class DocumentLoan {
         this.client = client;
         this.lendingDate = LocalDate.now();
         this.expectedReturnDate = this.lendingDate.plusWeeks(document.getBorrowTimeInWeeks());
+    }
+
+    public DocumentLoan(Document document, Client client, LocalDate lendingDate) {
+        this.document = document;
+        this.client = client;
+        this.lendingDate = lendingDate;
+        this.expectedReturnDate = this.lendingDate.plusWeeks(document.getBorrowTimeInWeeks());
+    }
+
+    public DocumentLoanOutputDto toOutPutDto(){
+        return new DocumentLoanOutputDto(id,document.getId(),lendingDate,expectedReturnDate,actualReturnDate);
     }
 }

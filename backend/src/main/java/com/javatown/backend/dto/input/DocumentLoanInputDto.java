@@ -1,4 +1,4 @@
-package com.javatown.backend.dto.output;
+package com.javatown.backend.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class DocumentLoanOutputDto {
-    private long id;
+public class DocumentLoanInputDto {
     private long documentId;
     private LocalDate lendingDate;
-    private LocalDate expectedReturnDate;
-    private LocalDate actualReturnDate;
+
+    public DocumentLoanInputDto (long documentId){
+        this.documentId = documentId;
+    }
 }

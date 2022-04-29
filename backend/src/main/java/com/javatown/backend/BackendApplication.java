@@ -1,6 +1,7 @@
 package com.javatown.backend;
 
 import com.javatown.backend.dto.input.ClientInputDto;
+import com.javatown.backend.dto.input.DocumentLoanInputDto;
 import com.javatown.backend.dto.input.document.BookInputDto;
 import com.javatown.backend.dto.input.document.CdInputDto;
 import com.javatown.backend.dto.input.document.DocumentInputDto;
@@ -66,5 +67,9 @@ public class BackendApplication implements CommandLineRunner {
         documentService.saveDocument(dvd1);
         documentService.saveDocument(dvd2);
         documentService.saveDocument(dvd3);
+
+        clientService.borrowDocument(1,new DocumentLoanInputDto(6));
+        clientService.borrowDocument(1,new DocumentLoanInputDto(7));
+        clientService.borrowDocument(1,new DocumentLoanInputDto(12));
     }
 }
