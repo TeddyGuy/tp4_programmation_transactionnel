@@ -61,4 +61,9 @@ public class DocumentController {
     public DocumentOutputDto updateCdById(@PathVariable long id, @RequestBody CdInputDto cdInputDto){
         return documentService.updateDocument(id,cdInputDto);
     }
+
+    @GetMapping("/dvds")
+    public List<DocumentOutputDto> getAllDvds(){
+        return documentService.getAllDvds();
+    }
 }

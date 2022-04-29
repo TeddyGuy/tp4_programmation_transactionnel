@@ -64,6 +64,7 @@ public class DocumentService {
         return Document.toDocumentOutputDtoList(cdRepository.findAll());
     }
 
+    public List<DocumentOutputDto> getAllDvds(){ return Document.toDocumentOutputDtoList(dvdRepository.findAll());}
 
     public DocumentOutputDto updateDocument(long id, DocumentInputDto inputDto){
         Document document = null;
