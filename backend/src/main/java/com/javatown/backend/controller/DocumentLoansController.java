@@ -7,11 +7,18 @@ import com.javatown.backend.service.DocumentLoanService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/document-loans")
 public class DocumentLoansController {
     DocumentLoanService documentLoanService;
+
+    @GetMapping
+    public List<DocumentLoanOutputDto> getDocumentLoans(){
+        return documentLoanService.getAllDocumentLoans();
+    }
 
     @PostMapping
     public DocumentLoanOutputDto borrowDocument(@RequestBody DocumentLoanInputDto inputDto){

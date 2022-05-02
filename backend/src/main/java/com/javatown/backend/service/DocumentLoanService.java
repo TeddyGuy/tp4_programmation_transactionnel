@@ -14,6 +14,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @Component
@@ -64,5 +66,16 @@ public class DocumentLoanService {
 
         documentRepository.save(document);
         return documentLoanRepository.save(documentLoan).toOutPutDto();
+    }
+
+    public List<DocumentLoanOutputDto> getAllDocumentLoans() {
+        List<DocumentLoan> documentLoans = documentLoanRepository.findAll();
+        List<DocumentLoanOutputDto> dtos = new ArrayList<>();
+
+        for (DocumentLoan loan : documentLoans) {
+            dtos.add(loan.toOutPutDto());
+        }
+
+        return dtos;
     }
 }
