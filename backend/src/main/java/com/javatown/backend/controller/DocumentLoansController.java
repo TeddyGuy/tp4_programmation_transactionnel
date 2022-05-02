@@ -19,7 +19,7 @@ public class DocumentLoansController {
     }
 
     @PostMapping("/{id}/return")
-    public DocumentLoanOutputDto returnDocument(@PathVariable long id, @RequestBody DocumentReturnRequestDto inputDto){
+    public DocumentLoanOutputDto returnDocumentWithRequestBody(@PathVariable long id, @RequestBody(required = false) DocumentReturnRequestDto inputDto){
         return documentLoanService.returnDocument(id, inputDto);
     }
 }

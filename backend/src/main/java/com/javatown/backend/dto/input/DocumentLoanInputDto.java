@@ -18,4 +18,13 @@ public class DocumentLoanInputDto {
         this.documentId = documentId;
         this.clientId = clientId;
     }
+
+    public String getMissingFields(){
+        String missingFields = "";
+
+        if(documentId <= 0) missingFields += "documentId, ";
+        if(clientId <= 0) missingFields += "clientId";
+
+        return missingFields;
+    }
 }

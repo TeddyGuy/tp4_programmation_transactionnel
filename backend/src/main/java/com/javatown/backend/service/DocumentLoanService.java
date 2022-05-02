@@ -3,10 +3,7 @@ package com.javatown.backend.service;
 import com.javatown.backend.dto.input.DocumentLoanInputDto;
 import com.javatown.backend.dto.input.DocumentReturnRequestDto;
 import com.javatown.backend.dto.output.DocumentLoanOutputDto;
-import com.javatown.backend.exception.ClientNotFoundException;
-import com.javatown.backend.exception.DocumentLoanNotFoundException;
-import com.javatown.backend.exception.DocumentNotFoundException;
-import com.javatown.backend.exception.InsufficientAmountOfCopiesException;
+import com.javatown.backend.exception.*;
 import com.javatown.backend.model.Client;
 import com.javatown.backend.model.DocumentLoan;
 import com.javatown.backend.model.document.Document;
@@ -26,6 +23,9 @@ public class DocumentLoanService {
     final private DocumentRepository documentRepository;
 
     public DocumentLoanOutputDto borrowDocument(DocumentLoanInputDto inputDto){
+        String missingFields = inputDto.getMissingFields();
+        if(!missingFields.isEmpty()) throw new DtoFieldsMissingException(missingFields);
+
         Client client = clientRepository.findByIdWithBorrowingHistory(inputDto.getClientId())
                 .orElseThrow(() -> new ClientNotFoundException(inputDto.getClientId()));
 
@@ -50,6 +50,8 @@ public class DocumentLoanService {
     public DocumentLoanOutputDto returnDocument(long documentLoanId, DocumentReturnRequestDto inputDto){
         DocumentLoan documentLoan = documentLoanRepository
                 .findById(documentLoanId).orElseThrow(() -> new DocumentLoanNotFoundException(documentLoanId));
+
+        if (!(documentLoan.getActualReturnDate() == null)) throw new DocumentAlreadyReturnedException();
 
         Document document = documentLoan.getDocument();
 

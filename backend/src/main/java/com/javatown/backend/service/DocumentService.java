@@ -5,8 +5,8 @@ import com.javatown.backend.dto.input.document.CdInputDto;
 import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.input.document.DvdInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
-import com.javatown.backend.exception.DocumentAttributeMissingException;
 import com.javatown.backend.exception.DocumentNotFoundException;
+import com.javatown.backend.exception.DtoFieldsMissingException;
 import com.javatown.backend.model.document.Document;
 import com.javatown.backend.repository.BookRepository;
 import com.javatown.backend.repository.CdRepository;
@@ -29,7 +29,7 @@ public class DocumentService {
 
     public DocumentOutputDto saveDocument (DocumentInputDto inputDto){
         String missingFields = inputDto.getMissingFields();
-        if(!missingFields.isEmpty()) throw new DocumentAttributeMissingException(missingFields);
+        if(!missingFields.isEmpty()) throw new DtoFieldsMissingException(missingFields);
         return documentRepository.save(inputDto.toDocument()).toOutputDto();
     }
 

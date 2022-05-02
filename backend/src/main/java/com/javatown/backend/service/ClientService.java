@@ -3,7 +3,7 @@ package com.javatown.backend.service;
 import com.javatown.backend.dto.input.ClientInputDto;
 import com.javatown.backend.dto.output.ClientOutputDto;
 import com.javatown.backend.dto.output.DocumentLoanOutputDto;
-import com.javatown.backend.exception.ClientAttributesMissingException;
+import com.javatown.backend.exception.DtoFieldsMissingException;
 import com.javatown.backend.exception.ClientNotFoundException;
 import com.javatown.backend.model.Client;
 import com.javatown.backend.model.DocumentLoan;
@@ -35,7 +35,7 @@ public class ClientService {
 
     public ClientOutputDto saveClient(ClientInputDto clientInputDto){
         String missingFields = clientInputDto.getMissingFields();
-        if (!missingFields.isEmpty()) throw new ClientAttributesMissingException(missingFields);
+        if (!missingFields.isEmpty()) throw new DtoFieldsMissingException(missingFields);
         return clientRepository.save(clientInputDto.toClient()).toOutputDto();
     }
 

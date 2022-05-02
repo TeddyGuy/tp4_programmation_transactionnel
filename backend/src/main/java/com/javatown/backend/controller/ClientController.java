@@ -16,12 +16,6 @@ import java.util.List;
 public class ClientController {
     ClientService clientService;
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public ClientOutputDto newClients(@RequestBody ClientInputDto clientInputDto) {
-        return clientService.saveClient(clientInputDto);
-    }
-
     @GetMapping
     public List<ClientOutputDto> getClients() {
         return clientService.getAllClients();
@@ -32,14 +26,20 @@ public class ClientController {
         return clientService.getClientById(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable long id){
-        clientService.deleteClientById(id);
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public ClientOutputDto newClients(@RequestBody ClientInputDto clientInputDto) {
+        return clientService.saveClient(clientInputDto);
     }
 
     @PatchMapping("/{id}")
     public ClientOutputDto updateClient(@PathVariable long id, @RequestBody ClientInputDto inputDto){
         return clientService.updateClientById(id, inputDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable long id){
+        clientService.deleteClientById(id);
     }
 
     @GetMapping("/{id}/borrowing-history")
