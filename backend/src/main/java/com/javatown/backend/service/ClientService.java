@@ -6,6 +6,7 @@ import com.javatown.backend.dto.input.ClientInputDto;
 import com.javatown.backend.dto.output.DocumentLoanOutputDto;
 import com.javatown.backend.exception.ClientAttributesMissingException;
 import com.javatown.backend.exception.ClientNotFoundException;
+import com.javatown.backend.exception.InsufficientAmountOfCopiesException;
 import com.javatown.backend.model.Client;
 import com.javatown.backend.model.DocumentLoan;
 import com.javatown.backend.model.document.Document;
@@ -66,6 +67,9 @@ public class ClientService {
     public DocumentLoanOutputDto borrowDocument(long id, DocumentLoanInputDto inputDto){
         Client client = clientRepository.findByIdWithBorrowingHistory(id).orElseThrow(() -> new ClientNotFoundException(id));
         Document document = documentRepository.findById(inputDto.getDocumentId()).orElseThrow(() -> new ClientNotFoundException(id));
+
+        if(document.getCopies() < 1) throw new InsufficientAmountOfCopiesException();
+
         DocumentLoan documentLoan = (inputDto.getLendingDate() == null ? new DocumentLoan(document,client) : new DocumentLoan(document,client,inputDto.getLendingDate()));
 
         client.getBorrowingHistory().add(documentLoan);

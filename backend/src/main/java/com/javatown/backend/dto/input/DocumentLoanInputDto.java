@@ -1,8 +1,8 @@
 package com.javatown.backend.dto.input;
 
+import com.javatown.backend.model.DocumentLoan;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 

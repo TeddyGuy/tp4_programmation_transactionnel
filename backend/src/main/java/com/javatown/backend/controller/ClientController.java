@@ -1,5 +1,6 @@
 package com.javatown.backend.controller;
 
+import com.javatown.backend.dto.input.DocumentLoanInputDto;
 import com.javatown.backend.dto.output.ClientOutputDto;
 import com.javatown.backend.dto.input.ClientInputDto;
 import com.javatown.backend.dto.output.DocumentLoanOutputDto;
@@ -41,13 +42,18 @@ public class ClientController {
     }
 
     @PatchMapping("/{id}")
-    public ClientOutputDto updateClient(@PathVariable long id, @RequestBody ClientInputDto clientInputDto){
-        return clientService.updateClientById(id, clientInputDto);
+    public ClientOutputDto updateClient(@PathVariable long id, @RequestBody ClientInputDto inputDto){
+        return clientService.updateClientById(id, inputDto);
     }
 
     @GetMapping("/{id}/borrowing-history")
     public List<DocumentLoanOutputDto> getBorrowingHistory(@PathVariable long id){
         return clientService.getBorrowingHistory(id);
+    }
+
+    @PostMapping("/{id}/borrowing-history")
+    public DocumentLoanOutputDto borrowDocument(@PathVariable long id, @RequestBody DocumentLoanInputDto inputDto){
+        return clientService.borrowDocument(id, inputDto);
     }
 }
 
