@@ -6,25 +6,21 @@ import com.javatown.backend.dto.input.document.BookInputDto;
 import com.javatown.backend.dto.input.document.CdInputDto;
 import com.javatown.backend.dto.input.document.DocumentInputDto;
 import com.javatown.backend.dto.input.document.DvdInputDto;
-import com.javatown.backend.model.document.Book;
 import com.javatown.backend.service.ClientService;
+import com.javatown.backend.service.DocumentLoanService;
 import com.javatown.backend.service.DocumentService;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Arrays;
 
 @SpringBootApplication
+@AllArgsConstructor
 public class BackendApplication implements CommandLineRunner {
     ClientService clientService;
     DocumentService documentService;
-
-    public BackendApplication(ClientService clientService, DocumentService documentService) {
-
-        this.clientService = clientService;
-        this.documentService = documentService;
-    }
+    DocumentLoanService documentLoanService;
 
     public static void main(String[] args) {
         SpringApplication.run(BackendApplication.class, args);
@@ -68,8 +64,8 @@ public class BackendApplication implements CommandLineRunner {
         documentService.saveDocument(dvd2);
         documentService.saveDocument(dvd3);
 
-        clientService.borrowDocument(1,new DocumentLoanInputDto(6));
-        clientService.borrowDocument(1,new DocumentLoanInputDto(7));
-        clientService.borrowDocument(1,new DocumentLoanInputDto(12));
+        documentLoanService.borrowDocument(new DocumentLoanInputDto(6,1));
+        documentLoanService.borrowDocument(new DocumentLoanInputDto(7, 1));
+        documentLoanService.borrowDocument(new DocumentLoanInputDto(12,1));
     }
 }

@@ -1,9 +1,6 @@
 package com.javatown.backend.model;
 
 import com.javatown.backend.dto.output.DocumentLoanOutputDto;
-import com.javatown.backend.model.document.Book;
-import com.javatown.backend.model.document.Cd;
-import com.javatown.backend.model.document.Dvd;
 import com.javatown.backend.model.document.Document;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +19,7 @@ public class DocumentLoan {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "document_id")
+    @JoinColumn(name = "documentId")
     @ToString.Exclude
     private Document document;
 
@@ -31,7 +28,7 @@ public class DocumentLoan {
     private LocalDate actualReturnDate;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "clientId")
     @ToString.Exclude
     private Client client;
 
@@ -50,6 +47,6 @@ public class DocumentLoan {
     }
 
     public DocumentLoanOutputDto toOutPutDto(){
-        return new DocumentLoanOutputDto(id,document.getId(),lendingDate,expectedReturnDate,actualReturnDate);
+        return new DocumentLoanOutputDto(id,document.getId(),client.getId(),lendingDate,expectedReturnDate,actualReturnDate);
     }
 }

@@ -5,19 +5,18 @@ import com.javatown.backend.dto.input.document.CdInputDto;
 import com.javatown.backend.dto.input.document.DvdInputDto;
 import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import com.javatown.backend.service.DocumentService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/documents")
+
 public class DocumentController {
     DocumentService documentService;
-
-    public DocumentController(DocumentService documentService) {
-        this.documentService = documentService;
-    }
 
     @GetMapping
     public List<DocumentOutputDto> getAllDocuments(){

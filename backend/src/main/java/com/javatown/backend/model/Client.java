@@ -1,7 +1,7 @@
 package com.javatown.backend.model;
 
-import com.javatown.backend.dto.output.ClientOutputDto;
 import com.javatown.backend.dto.input.ClientInputDto;
+import com.javatown.backend.dto.output.ClientOutputDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

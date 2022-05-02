@@ -2,7 +2,6 @@ package com.javatown.backend.dto.input.document;
 
 import com.javatown.backend.model.document.Book;
 import com.javatown.backend.model.document.Document;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

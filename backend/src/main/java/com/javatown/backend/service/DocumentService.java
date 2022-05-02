@@ -8,28 +8,24 @@ import com.javatown.backend.dto.output.document.DocumentOutputDto;
 import com.javatown.backend.exception.DocumentAttributeMissingException;
 import com.javatown.backend.exception.DocumentNotFoundException;
 import com.javatown.backend.model.document.Document;
-import com.javatown.backend.repository.*;
+import com.javatown.backend.repository.BookRepository;
+import com.javatown.backend.repository.CdRepository;
+import com.javatown.backend.repository.DocumentRepository;
+import com.javatown.backend.repository.DvdRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class DocumentService {
 
     final private DocumentRepository documentRepository;
     final private BookRepository bookRepository;
     final private CdRepository cdRepository;
     final private DvdRepository dvdRepository;
-
-    public DocumentService(DocumentRepository documentRepository,
-                           BookRepository bookRepository,
-                           CdRepository cdRepository,
-                           DvdRepository dvdRepository) {
-        this.documentRepository = documentRepository;
-        this.bookRepository = bookRepository;
-        this.cdRepository = cdRepository;
-        this.dvdRepository = dvdRepository;
-    }
 
     public DocumentOutputDto saveDocument (DocumentInputDto inputDto){
         String missingFields = inputDto.getMissingFields();

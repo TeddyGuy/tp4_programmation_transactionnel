@@ -12,6 +12,7 @@ import java.time.LocalDate;
 public class DocumentLoanOutputDto {
     private long id;
     private long documentId;
+    private long clientId;
     private LocalDate lendingDate;
     private LocalDate expectedReturnDate;
     private LocalDate actualReturnDate;

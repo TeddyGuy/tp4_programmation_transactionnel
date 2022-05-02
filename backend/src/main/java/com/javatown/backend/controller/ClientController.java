@@ -1,24 +1,20 @@
 package com.javatown.backend.controller;
 
-import com.javatown.backend.dto.input.DocumentLoanInputDto;
-import com.javatown.backend.dto.output.ClientOutputDto;
 import com.javatown.backend.dto.input.ClientInputDto;
+import com.javatown.backend.dto.output.ClientOutputDto;
 import com.javatown.backend.dto.output.DocumentLoanOutputDto;
 import com.javatown.backend.service.ClientService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@AllArgsConstructor
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
     ClientService clientService;
-
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
-    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -49,11 +45,6 @@ public class ClientController {
     @GetMapping("/{id}/borrowing-history")
     public List<DocumentLoanOutputDto> getBorrowingHistory(@PathVariable long id){
         return clientService.getBorrowingHistory(id);
-    }
-
-    @PostMapping("/{id}/borrowing-history")
-    public DocumentLoanOutputDto borrowDocument(@PathVariable long id, @RequestBody DocumentLoanInputDto inputDto){
-        return clientService.borrowDocument(id, inputDto);
     }
 }
 
