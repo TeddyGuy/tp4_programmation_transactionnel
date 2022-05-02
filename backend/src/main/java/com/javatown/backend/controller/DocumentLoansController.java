@@ -20,6 +20,11 @@ public class DocumentLoansController {
         return documentLoanService.getAllDocumentLoans();
     }
 
+    @GetMapping("/{id}")
+    public DocumentLoanOutputDto getDocumentLoanById(@PathVariable long id){
+        return documentLoanService.getDocumentLoanById(id);
+    }
+
     @PostMapping
     public DocumentLoanOutputDto borrowDocument(@RequestBody DocumentLoanInputDto inputDto){
         return documentLoanService.borrowDocument(inputDto);

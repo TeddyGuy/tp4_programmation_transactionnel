@@ -78,4 +78,10 @@ public class DocumentLoanService {
 
         return dtos;
     }
+
+    public DocumentLoanOutputDto getDocumentLoanById(long id){
+        DocumentLoan documentLoan = documentLoanRepository.findById(id)
+                .orElseThrow(() -> new DocumentLoanNotFoundException(id));
+        return documentLoan.toOutPutDto();
+    }
 }
