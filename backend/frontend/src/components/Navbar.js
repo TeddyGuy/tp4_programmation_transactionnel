@@ -1,6 +1,0 @@
-
-const Navbar = () => {
-    <div>
-        
-    </div>
-}
