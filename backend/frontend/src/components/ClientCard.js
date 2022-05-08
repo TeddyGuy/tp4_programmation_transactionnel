@@ -1,12 +1,12 @@
-import { Button } from "react-bootstrap";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
+
 
 
 const ClientCard = ({client}) => {
 
     return(
         <>
-            <Card className="m-auto" style={{ width: '18rem' }}>
+            <Card className="m-auto mb-1" style={{ width: '18rem' }}>
                 <Card.Body>
                     <Card.Title>
                         { client.email }
@@ -18,7 +18,6 @@ const ClientCard = ({client}) => {
                 </Card.Body>
             </Card>
         </>
-        
     );
 }
 
