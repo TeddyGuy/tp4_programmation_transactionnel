@@ -1,8 +1,9 @@
 import { Card, Button } from "react-bootstrap";
+import CloseButton from 'react-bootstrap/CloseButton'
 
 
 
-const ClientCard = ({client, setFormData}) => {
+const ClientCard = ({client, setFormData, onDelete}) => {
 
     const sendClientInfoToForm = () => {
         const formData = {
@@ -14,9 +15,13 @@ const ClientCard = ({client, setFormData}) => {
         setFormData(formData)
     }
 
+    const deleteClient = () => {
+        onDelete(client);
+    }
+
     return(
         <>
-            <Card className="m-auto mb-1" style={{ width: '18rem' }}>
+            <Card className="m-auto mb-1" style={{ width: '19rem' }}>
                 <Card.Body>
                     <Card.Title>
                         { client.email }
@@ -24,7 +29,9 @@ const ClientCard = ({client, setFormData}) => {
                     <Card.Text>
                         {client.firstName}, { client.lastName }
                     </Card.Text>
-                    <Button variant="warning" onClick={sendClientInfoToForm}>Modifier</Button> <Button variant="primary">Emprunts</Button>
+                    <Button variant="warning me-1" onClick={sendClientInfoToForm}>Modifier</Button> 
+                    <Button className="me-5" variant="primary">Emprunts</Button>
+                    <CloseButton onClick={deleteClient}/>
                 </Card.Body>
             </Card>
         </>

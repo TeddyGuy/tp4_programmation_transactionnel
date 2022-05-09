@@ -1,11 +1,11 @@
 import ClientCard from "./ClientCard"
 
-const ClientCardList = ({clients, setFormData}) => {
+const ClientCardList = ({clients, setFormData, onDelete}) => {
     return(
         <>
             {clients.map((client) => (
 
-                <ClientCard key={client.id} client={client} setFormData={setFormData} />))}
+                <ClientCard key={client.id} client={client} setFormData={setFormData} onDelete={onDelete} />))}
         </>
     );
 }

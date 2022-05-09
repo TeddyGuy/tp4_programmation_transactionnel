@@ -20,7 +20,7 @@ public class Client {
     private String firstName;
     private String lastName;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", orphanRemoval = true)
     private List<DocumentLoan> borrowingHistory = new ArrayList();
 
     public Client(String email, String firstName, String lastName) {

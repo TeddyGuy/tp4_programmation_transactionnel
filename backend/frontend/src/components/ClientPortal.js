@@ -5,6 +5,12 @@ import { Col, Row, Spinner } from "react-bootstrap";
 import ClientCardList from "./ClientCardList";
 import ClientForm from "./ClientForm";
 
+const useForceUpdate = () => {
+    const [value, setValue] = useState(0); 
+    const increment = () => setValue((prev) => prev + 1);
+    return [increment, value];
+}
+
 const ClientPortal  = () => {
     const initialFormData = {
         id:'',
@@ -14,7 +20,8 @@ const ClientPortal  = () => {
     }
 
     const [clients, setClients] = useState([]);
-    const [formData, setFormData] = useState(initialFormData);  
+    const [formData, setFormData] = useState(initialFormData); 
+    const [forceUpdate, count] = useForceUpdate();
 
     useEffect(() => {
         const getClients = async () => {
@@ -22,7 +29,7 @@ const ClientPortal  = () => {
             setClients(clientsFromServer);
         }
         getClients();
-    },[formData]);
+    },[formData, count]);
 
     const fetchClients = async () => {
         var clientsFromServer;
@@ -42,6 +49,8 @@ const ClientPortal  = () => {
         }
     }
 
+
+
     const createClient = async (formData) => {
         await axios.post("http://localhost:8080/clients",formData);
         setFormData(initialFormData);
@@ -49,7 +58,13 @@ const ClientPortal  = () => {
 
     const updateClient = async () => {
         await axios.patch("http://localhost:8080/clients/" + formData.id,formData);
-        setFormData(initialFormData); 
+        forceUpdate();
+    }
+
+    const onDelete = async (client) => {
+        console.log(client.id)
+        await axios.delete("http://localhost:8080/clients/" + client.id);
+        forceUpdate();
     }
 
     return(
@@ -57,7 +72,7 @@ const ClientPortal  = () => {
             <Col>
                 { 
                     clients.length > 0 ?
-                    <ClientCardList clients={clients} setFormData={setFormData}/> :
+                    <ClientCardList clients={clients} setFormData={setFormData} onDelete={onDelete}/> :
                     <Spinner className='m-auto' animation="border" variant="warning" />
                 }       
             </Col>
