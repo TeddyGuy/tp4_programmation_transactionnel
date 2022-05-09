@@ -2,7 +2,17 @@ import { Card, Button } from "react-bootstrap";
 
 
 
-const ClientCard = ({client}) => {
+const ClientCard = ({client, setFormData}) => {
+
+    const sendClientInfoToForm = () => {
+        const formData = {
+            id:client.id,
+            firstName:client.firstName,
+            lastName:client.lastName,
+            email:client.email
+        }
+        setFormData(formData)
+    }
 
     return(
         <>
@@ -14,7 +24,7 @@ const ClientCard = ({client}) => {
                     <Card.Text>
                         {client.firstName}, { client.lastName }
                     </Card.Text>
-                    <Button variant="warning">Détails</Button>
+                    <Button variant="warning" onClick={sendClientInfoToForm}>Modifier</Button> <Button variant="primary">Emprunts</Button>
                 </Card.Body>
             </Card>
         </>

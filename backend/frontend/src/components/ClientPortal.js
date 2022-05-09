@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
 import ClientCardList from "./ClientCardList";
@@ -13,9 +14,7 @@ const ClientPortal  = () => {
     }
 
     const [clients, setClients] = useState([]);
-    const [formData, setFormData] = useState(initialFormData);
-
-    
+    const [formData, setFormData] = useState(initialFormData);  
 
     useEffect(() => {
         const getClients = async () => {
@@ -33,9 +32,24 @@ const ClientPortal  = () => {
         return clientsFromServer;
     }
 
+    const formHandler = (e) => {
+        e.preventDefault()
+        if(formData.id === ''){
+            createClient(formData);
+        }
+        else{
+            updateClient();
+        }
+    }
+
     const createClient = async (formData) => {
         await axios.post("http://localhost:8080/clients",formData);
         setFormData(initialFormData);
+    }
+
+    const updateClient = async () => {
+        await axios.patch("http://localhost:8080/clients/" + formData.id,formData);
+        setFormData(initialFormData); 
     }
 
     return(
@@ -43,13 +57,13 @@ const ClientPortal  = () => {
             <Col>
                 { 
                     clients.length > 0 ?
-                    <ClientCardList clients={clients}/> :
+                    <ClientCardList clients={clients} setFormData={setFormData}/> :
                     <Spinner className='m-auto' animation="border" variant="warning" />
                 }       
             </Col>
             <Col>
                 <ClientForm 
-                createClient={createClient}
+                formHandler={formHandler}
                 formData={formData}
                 setFormData={setFormData} />
             </Col>
