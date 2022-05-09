@@ -68,12 +68,12 @@ const ClientPortal  = () => {
     }
 
     return(
-        <Row className="my-5 mx-5">
+        <Row className="py-5 px-5">
             <Col>
                 { 
                     clients.length > 0 ?
                     <ClientCardList clients={clients} setFormData={setFormData} onDelete={onDelete}/> :
-                    <Spinner className='m-auto' animation="border" variant="warning" />
+                    <Spinner className='m-auto' animation="border" variant="warning"/>
                 }       
             </Col>
             <Col>
