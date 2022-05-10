@@ -3,9 +3,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DocumentCard from "./DocumentCard";
 
-const DocumentLoanCard = ({documentLoan}) => {
+const DocumentLoanCard = ({documentLoan, returnDocument}) => {
     const [document, setDocument] = useState(null);
-
+    
     useEffect(() => {
         const getDocument = async () => {
             const documentFromServer = await fetchDocument();
@@ -14,14 +14,20 @@ const DocumentLoanCard = ({documentLoan}) => {
         getDocument();
     },[]);
 
+    const handleReturn = () => {
+        returnDocument(documentLoan);
+    }
+
     const fetchDocument = async () => {
         var documentFromServer
         await axios.get("http://localhost:8080/documents/" + documentLoan.documentId).then((response) => {
             documentFromServer = response.data;
           }
         );
-        return documentFromServer
+        return documentFromServer;
     }
+
+    
 
     return(
         <>
@@ -35,7 +41,7 @@ const DocumentLoanCard = ({documentLoan}) => {
                         Date de retour expecté: { documentLoan.expectedReturnDate } <br/>
                         {
                             documentLoan.actualReturnDate == null ?
-                            <Button className="mt-1">Retourner</Button>:
+                            <Button className="mt-1" onClick={handleReturn}>Retourner</Button>:
                             <span>Date de retour: {documentLoan.actualReturnDate}</span>
                         }
                     </div>

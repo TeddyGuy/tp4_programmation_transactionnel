@@ -1,15 +1,9 @@
 import axios from "axios";
-
 import { useEffect, useState } from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
 import ClientCardList from "../components/ClientCardList";
 import ClientForm from "../components/ClientForm";
-
-const useForceUpdate = () => {
-    const [value, setValue] = useState(0); 
-    const increment = () => setValue((prev) => prev + 1);
-    return [increment, value];
-}
+import useForceUpdate from "../hooks/useForceUpdate";
 
 const ClientPortal  = () => {
     const initialFormData = {
@@ -21,7 +15,7 @@ const ClientPortal  = () => {
 
     const [clients, setClients] = useState([]);
     const [formData, setFormData] = useState(initialFormData); 
-    const [forceUpdate, count] = useForceUpdate();
+    const [update,forceUpdate] = useForceUpdate();
 
     useEffect(() => {
         const getClients = async () => {
@@ -29,7 +23,7 @@ const ClientPortal  = () => {
             setClients(clientsFromServer);
         }
         getClients();
-    },[formData, count]);
+    },[formData, update]);
 
     const fetchClients = async () => {
         var clientsFromServer;

@@ -8,8 +8,6 @@ const ClientForm = ({formHandler, formData, setFormData}) => {
         email:'',
     }
 
-    
-
     const clearForm = () => {
         setFormData(initialFormData)
     } 

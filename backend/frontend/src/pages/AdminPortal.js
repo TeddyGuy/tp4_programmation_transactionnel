@@ -3,12 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DocumentCardList from "../components/DocumentCardList";
 import DocumentForm from "../components/DocumentForm";
-
-const useForceUpdate = () => {
-    const [value, setValue] = useState(0); 
-    const increment = () => setValue((prev) => prev + 1);
-    return [increment, value];
-}
+import useForceUpdate from "../hooks/useForceUpdate";
 
 const AdminPortal = () => {
     const initialFormData = {
@@ -24,7 +19,7 @@ const AdminPortal = () => {
     }
     const[documents, setDocuments] = useState([]);
     const[formData, setFormData] = useState(initialFormData);
-    const [forceUpdate, count] = useForceUpdate();
+    const [update, forceUpdate] = useForceUpdate();
 
     useEffect(()=>{
         const getDocuments = async () => {
@@ -32,7 +27,7 @@ const AdminPortal = () => {
             setDocuments(documentsFromServer);
         }
         getDocuments();
-    },[formData, count]);
+    },[formData, update]);
 
     const fetchDocuments = async () => {
         var documentsFromServer;

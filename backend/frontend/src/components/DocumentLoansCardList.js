@@ -1,12 +1,11 @@
 import DocumentLoanCard from "./DocumentLoanCard";
 
-
-const DocumentLoanCardList = ({documentLoans}) => {
+const DocumentLoanCardList = ({documentLoans, returnDocument}) => {
     return(
         <>
             {
                 documentLoans.map((documentLoan) => (
-                        <DocumentLoanCard key={documentLoan.id} documentLoan={documentLoan}/>))
+                        <DocumentLoanCard key={documentLoan.id} documentLoan={documentLoan} returnDocument={returnDocument}/>))
             }
         </>
     );
