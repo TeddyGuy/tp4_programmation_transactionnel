@@ -1,8 +1,6 @@
 import { Form, Button } from 'react-bootstrap';
 
-const DocumentForm = ({formHandler, formData, setFormData, formValidated}) => {
-    
-
+const DocumentForm = ({formHandler, formData, setFormData}) => {
     const initialFormData = {
         id:'',
         type:'',
@@ -21,7 +19,7 @@ const DocumentForm = ({formHandler, formData, setFormData, formValidated}) => {
 
     return(
         <>
-        <Form className='m-auto border border-warning rounded p-3' noValidate validated={formValidated} style={{ width: '32rem' }} onSubmit={formHandler}>
+        <Form className='m-auto border border-warning rounded p-3' noValidate style={{ width: '32rem' }} onSubmit={formHandler}>
                 <h1 className='text-center'>Créer/Modifier un document</h1>
                 <Form.Group className='mb-3' controlId='id'>
                     <Form.Label>ID</Form.Label>
@@ -31,9 +29,10 @@ const DocumentForm = ({formHandler, formData, setFormData, formValidated}) => {
                     <Form.Label>Type</Form.Label>
                     <Form.Select
                     isInvalid={formData.type === "default"}
+                    disabled={!(formData.id === '')}
                     value={formData.type} 
                     onChange={(e) => setFormData({...formData, 'type': e.target.value}) }>
-                        <option hidden disabled value="default">Choisissez un type de document</option>
+                        <option hidden value="default">Choisissez un type de document</option>
                         <option value="book">Livre</option>
                         <option value="cd">CD</option>
                         <option value="cd">DVD</option>

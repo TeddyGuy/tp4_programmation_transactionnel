@@ -42,14 +42,14 @@ const ClientPortal  = () => {
     const formHandler = (e) => {
         e.preventDefault()
         if(formData.id === ''){
-            createClient(formData);
+            createClient();
         }
         else{
             updateClient();
         }
     }
 
-    const createClient = async (formData) => {
+    const createClient = async () => {
         await axios.post("http://localhost:8080/clients",formData);
         setFormData(initialFormData);
     }
@@ -60,7 +60,6 @@ const ClientPortal  = () => {
     }
 
     const onDelete = async (client) => {
-        console.log(client.id)
         await axios.delete("http://localhost:8080/clients/" + client.id);
         forceUpdate();
     }

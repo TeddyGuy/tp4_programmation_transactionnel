@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 import DocumentCardList from "./DocumentCardList";
 import DocumentForm from "./DocumentForm";
 
+const useForceUpdate = () => {
+    const [value, setValue] = useState(0); 
+    const increment = () => setValue((prev) => prev + 1);
+    return [increment, value];
+}
+
 const AdminPortal = () => {
     const initialFormData = {
         id:'',
@@ -18,6 +24,7 @@ const AdminPortal = () => {
     }
     const[documents, setDocuments] = useState([]);
     const[formData, setFormData] = useState(initialFormData);
+    const [forceUpdate, count] = useForceUpdate();
 
     useEffect(()=>{
         const getDocuments = async () => {
@@ -25,7 +32,7 @@ const AdminPortal = () => {
             setDocuments(documentsFromServer);
         }
         getDocuments();
-    },[formData]);
+    },[formData, count]);
 
     const fetchDocuments = async () => {
         var documentsFromServer;
@@ -42,7 +49,7 @@ const AdminPortal = () => {
         if(!(form.checkValidity() && !form.querySelector("#type").className.includes("is-invalid"))) return;
 
         if(formData.id === ''){
-            createDocument(formData);
+            createDocument();
         }
         else{
             updateDocument();
@@ -54,8 +61,9 @@ const AdminPortal = () => {
         setFormData(initialFormData);
     }
 
-    const updateDocument = () => {
-
+    const updateDocument = async () => {
+        await axios.patch("http://localhost:8080/documents/" + formData.type + "s/" + formData.id, formData);
+        forceUpdate();
     }
 
     return(
@@ -64,7 +72,7 @@ const AdminPortal = () => {
             <Col>
                 {
                     documents.length > 0 ?
-                    <DocumentCardList documents={documents}/> :
+                    <DocumentCardList documents={documents} setFormData={setFormData}/> :
                     <Spinner className='m-auto' animation="border" variant="warning"/>
                 }
             </Col>
