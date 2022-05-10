@@ -1,84 +1,56 @@
 import { Card, Button } from "react-bootstrap";
 import CloseButton from 'react-bootstrap/CloseButton'
 
-
-export const BookCard = ({book, setFormData}) => {
+const DocumentCard = ({document, setFormData, mode}) => {
     const sendDocumentInfoToForm = () => {
         const formData = {
-            id:book.id,
-            type:book.type,
-            title:book.title,
-            author:book.author,
-            genre:book.genre,
-            publisher:book.publisher,
-            publicationYear:book.publicationYear,
-            pages:book.pages,
-            copies:book.copies
+            id:document.id,
+            type:document.type,
+            title:document.title,
+            author:document.author,
+            genre:document.genre,
+            publisher:document.publisher,
+            publicationYear:document.publicationYear,
+            pages:document.pages,
+            copies:document.copies
         }
         setFormData(formData);
     }
-    
+
     return(
         <>
             <Card className="m-auto mb-1" style={{ width: '19rem' }}>
                 <Card.Body>
                     <Card.Title>
-                        Livre: {book.title}
+                        {
+                            document.type === 'book' ? 
+                            <span>Livre: {document.title}</span> :
+                            <span>{document.type.toUpperCase()}: {document.title}</span>
+                        }
                     </Card.Title>
                     <Card.Text>
-                        Auteur: {book.author} <br/>
-                        Genre: {book.genre} <br/>
-                        Année de publication: {book.publicationYear} <br/>
-                        Pages: {book.pages} <br/>
+                        Auteur: {document.author} <br/>
+                        Genre: {document.genre} <br/>
+                        Année de publication: {document.publicationYear} <br/>
+                        { document.type === 'book' && <span>Pages: {document.pages} <br/></span> }
                     </Card.Text>
-                    <div className="d-flex justify-content-between">
+                    {
+                        mode === 'edit' &&
+                        <div className="d-flex justify-content-between">
                             <Button variant="warning" onClick={sendDocumentInfoToForm}>Modifier</Button> 
                             <CloseButton className="mt-3"/>
-                    </div>
+                        </div>
+                    }
                 </Card.Body>
-                <Card.Footer>
-                        Nombre d'exemplaires: {book.copies}
-                </Card.Footer>
+                {
+                    mode === 'edit' &&
+                    <Card.Footer>
+                        Nombre d'exemplaires: {document.copies}
+                    </Card.Footer>
+                } 
             </Card>
         </>
     );
 }
 
-export const DiscCard = ({disc , setFormData}) => {
-    const sendDocumentInfoToForm = () => {
-        const formData = {
-            id:disc.id,
-            type:disc.type,
-            title:disc.title,
-            author:disc.author,
-            genre:disc.genre,
-            publicationYear:disc.publicationYear,
-            copies:disc.copies
-        }
-        setFormData(formData);
-    }
-    return(
-        <>
-            <Card className="m-auto mb-1" style={{ width: '19rem' }}>
-                <Card.Body>
-                    <Card.Title>
-                        {disc.type.toUpperCase()}: {disc.title}
-                    </Card.Title>
-                    <Card.Text>
-                        Auteur: {disc.author} <br/>
-                        Genre: {disc.genre} <br/>
-                        Année de publication: {disc.publicationYear} <br/>
-                        
-                    </Card.Text>
-                    <div className="d-flex justify-content-between">
-                            <Button variant="warning" onClick={sendDocumentInfoToForm}>Modifier</Button> 
-                            <CloseButton className="mt-3"/>
-                    </div>
-                </Card.Body>
-                <Card.Footer>
-                        Nombre d'exemplaires: {disc.copies}
-                </Card.Footer>
-            </Card>
-        </>
-    );
-}
+export default DocumentCard;

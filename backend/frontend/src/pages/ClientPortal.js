@@ -2,8 +2,8 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
-import ClientCardList from "./ClientCardList";
-import ClientForm from "./ClientForm";
+import ClientCardList from "../components/ClientCardList";
+import ClientForm from "../components/ClientForm";
 
 const useForceUpdate = () => {
     const [value, setValue] = useState(0); 

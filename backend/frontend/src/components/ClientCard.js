@@ -1,5 +1,6 @@
 import { Card, Button } from "react-bootstrap";
 import CloseButton from 'react-bootstrap/CloseButton'
+import { Link } from "react-router-dom";
 
 
 
@@ -30,7 +31,7 @@ const ClientCard = ({client, setFormData, onDelete}) => {
                         {client.firstName}, { client.lastName }
                     </Card.Text>
                     <Button variant="warning me-1" onClick={sendClientInfoToForm}>Modifier</Button> 
-                    <Button className="me-5" variant="primary">Emprunts</Button>
+                    <Button className="me-5" as={Link} to={"/client/" + client.id + "/borrowing-history"} variant="primary">Emprunts</Button>
                     <CloseButton onClick={deleteClient}/>
                 </Card.Body>
             </Card>

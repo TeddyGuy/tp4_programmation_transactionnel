@@ -1,8 +1,8 @@
 import { Col, Row, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import DocumentCardList from "./DocumentCardList";
-import DocumentForm from "./DocumentForm";
+import DocumentCardList from "../components/DocumentCardList";
+import DocumentForm from "../components/DocumentForm";
 
 const useForceUpdate = () => {
     const [value, setValue] = useState(0); 

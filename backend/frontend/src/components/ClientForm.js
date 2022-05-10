@@ -18,7 +18,7 @@ const ClientForm = ({formHandler, formData, setFormData}) => {
         <>
             <Form className='m-auto border border-warning rounded p-3' style={{ width: '32rem' }} onSubmit={formHandler}>
                 <h1 className='text-center'>Créer/Modifier un compte</h1>
-                <Form.Group className='mb-3' controlId='id'>
+                <Form.Group className='d-none' controlId='id'>
                     <Form.Label>ID</Form.Label>
                     <Form.Control value={formData.id} type="text" disabled readOnly/>
                 </Form.Group>
