@@ -9,8 +9,9 @@ const DocumentCardList = ({documents}) => {
                     return <BookCard key={document.id} book={document}/>
                 }
                 if (document.type === 'cd'|| document.type === 'dvd'){
-                    return <DiscCard key={document.id} disc={document}/>
+                   return <DiscCard key={document.id} disc={document}/>
                 }
+                return 'No model card available'
             }
         )}
     </>

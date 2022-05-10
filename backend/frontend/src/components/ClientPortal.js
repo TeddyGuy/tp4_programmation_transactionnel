@@ -49,8 +49,6 @@ const ClientPortal  = () => {
         }
     }
 
-
-
     const createClient = async (formData) => {
         await axios.post("http://localhost:8080/clients",formData);
         setFormData(initialFormData);

@@ -2,10 +2,22 @@ import { Col, Row, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import DocumentCardList from "./DocumentCardList";
+import DocumentForm from "./DocumentForm";
 
 const AdminPortal = () => {
+    const initialFormData = {
+        id:'',
+        title:'',
+        type:'default',
+        author:'',
+        genre:'',
+        publisher:'',
+        publicationYear:0,
+        pages:0,
+        copies:1
+    }
     const[documents, setDocuments] = useState([]);
-    const[formData, setFormData] = useState({});
+    const[formData, setFormData] = useState(initialFormData);
 
     useEffect(()=>{
         const getDocuments = async () => {
@@ -13,7 +25,7 @@ const AdminPortal = () => {
             setDocuments(documentsFromServer);
         }
         getDocuments();
-    },[]);
+    },[formData]);
 
     const fetchDocuments = async () => {
         var documentsFromServer;
@@ -21,6 +33,29 @@ const AdminPortal = () => {
             documentsFromServer = response.data
         }); 
         return documentsFromServer;
+    }
+
+    const formHandler = (e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+
+        if(!(form.checkValidity() && !form.querySelector("#type").className.includes("is-invalid"))) return;
+
+        if(formData.id === ''){
+            createDocument(formData);
+        }
+        else{
+            updateDocument();
+        }
+    }
+
+    const createDocument = async () => {
+        await axios.post("http://localhost:8080/documents/" + formData.type + "s", formData);
+        setFormData(initialFormData);
+    }
+
+    const updateDocument = () => {
+
     }
 
     return(
@@ -32,9 +67,9 @@ const AdminPortal = () => {
                     <DocumentCardList documents={documents}/> :
                     <Spinner className='m-auto' animation="border" variant="warning"/>
                 }
-                
             </Col>
             <Col>
+                <DocumentForm formData={formData} setFormData={setFormData} formHandler={formHandler}/>
             </Col>
         </Row>
     </>

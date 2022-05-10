@@ -10,16 +10,15 @@ export const BookCard = ({book}) => {
                         Livre: {book.title}
                     </Card.Title>
                     <Card.Text>
-                        <p>Auteur: {book.author}</p>
-                        <p>Genre: {book.genre}</p>
-                        <p>Année de publication: {book.publicationYear}</p>
-                        <p>Maison d'édition: {book.publisher}</p>
-                        <p>Pages: {book.pages}</p>
-                        <div className="d-flex justify-content-between">
+                        Auteur: {book.author} <br/>
+                        Genre: {book.genre} <br/>
+                        Année de publication: {book.publicationYear} <br/>
+                        Pages: {book.pages} <br/>
+                    </Card.Text>
+                    <div className="d-flex justify-content-between">
                             <Button variant="warning">Modifier</Button> 
                             <CloseButton className="mt-3"/>
-                        </div>
-                    </Card.Text>
+                    </div>
                 </Card.Body>
                 <Card.Footer>
                         Nombre d'exemplaires: {book.copies}
@@ -38,14 +37,15 @@ export const DiscCard = ({disc}) => {
                         {disc.type.toUpperCase()}: {disc.title}
                     </Card.Title>
                     <Card.Text>
-                        <p>Auteur: {disc.author}</p>
-                        <p>Genre: {disc.genre}</p>
-                        <p>Année de publication: {disc.publicationYear}</p>
-                        <div className="d-flex justify-content-between">
+                        Auteur: {disc.author} <br/>
+                        Genre: {disc.genre} <br/>
+                        Année de publication: {disc.publicationYear} <br/>
+                        
+                    </Card.Text>
+                    <div className="d-flex justify-content-between">
                             <Button variant="warning">Modifier</Button> 
                             <CloseButton className="mt-3"/>
-                        </div>
-                    </Card.Text>
+                    </div>
                 </Card.Body>
                 <Card.Footer>
                         Nombre d'exemplaires: {disc.copies}
