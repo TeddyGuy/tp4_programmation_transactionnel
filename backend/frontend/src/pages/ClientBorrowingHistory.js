@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DocumentLoanCardList from "../components/DocumentLoansCardList";
 import useForceUpdate from "../hooks/useForceUpdate";
+import { fetchDocuments } from "../hooks/apiHooks";
+import DocumentCardList from "../components/DocumentCardList";
 
 
 const ClientBorrowingHistory = () => {
     const {id} = useParams();
     const[client, setClient] = useState({});
     const[documentLoans, setDocumentLoans] = useState([]);
+    const[documents, setDocuments] = useState([]); 
     const [update, forceUpdate] = useForceUpdate();
 
     const fetchClient = async () => {
@@ -32,16 +35,31 @@ const ClientBorrowingHistory = () => {
         forceUpdate();
     }
 
+    const borrowDocument = async (documentId) => {
+        await axios.post(
+            "http://localhost:8080/document-loans/",
+            { 
+                clientId:client.id,
+                documentId:documentId
+            });
+        forceUpdate();
+    }
+
     useEffect(() => {
         const getClient = async () => {
             const clientFromServer = await fetchClient();
             setClient(clientFromServer);
         }
-        const getDocuments = async () => {
+        const getDocumentLoans = async () => {
             const documentLoansFromServer = await fetchDocumentLoans();
             setDocumentLoans(documentLoansFromServer);
         }
+        const getDocuments = async () => {
+            const documentsFromServer = await fetchDocuments();
+            setDocuments(documentsFromServer);
+        }
         getDocuments();
+        getDocumentLoans();
         getClient();
     },[update])
 
@@ -49,12 +67,13 @@ const ClientBorrowingHistory = () => {
 
     return(
         <>
-            <h1 className="text-center">Historique d'emprunt de {client.firstName}, {client.lastName}</h1>
-            <Row className="py-5 px-5">
+            <h1 className="text-center mt-4">Historique d'emprunt de {client.firstName}, {client.lastName}</h1>
+            <Row className="py-5 px-5 m-0">
                 <Col>
                     <DocumentLoanCardList documentLoans={documentLoans} returnDocument={returnDocument}/>
                 </Col>
                 <Col>
+                    <DocumentCardList documents={documents} mode={'borrow'} borrowDocument={borrowDocument}/>
                 </Col>
             </Row>
         </>

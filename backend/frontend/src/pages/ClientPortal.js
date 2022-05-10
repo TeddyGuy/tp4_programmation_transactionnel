@@ -59,7 +59,7 @@ const ClientPortal  = () => {
     }
 
     return(
-        <Row className="py-5 px-5">
+        <Row className="py-5 px-5 m-0">
             <Col>
                 { 
                     clients.length > 0 ?

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import DocumentCardList from "../components/DocumentCardList";
 import DocumentForm from "../components/DocumentForm";
 import useForceUpdate from "../hooks/useForceUpdate";
+import { fetchDocuments } from "../hooks/apiHooks";
 
 const AdminPortal = () => {
     const initialFormData = {
@@ -28,14 +29,6 @@ const AdminPortal = () => {
         }
         getDocuments();
     },[formData, update]);
-
-    const fetchDocuments = async () => {
-        var documentsFromServer;
-        await axios.get("http://localhost:8080/documents").then((response) => {
-            documentsFromServer = response.data
-        }); 
-        return documentsFromServer;
-    }
 
     const formHandler = (e) => {
         e.preventDefault();
@@ -63,11 +56,11 @@ const AdminPortal = () => {
 
     return(
     <>
-        <Row className="py-5 px-5">
+        <Row className="py-5 px-5 m-0">
             <Col>
                 {
                     documents.length > 0 ?
-                    <DocumentCardList documents={documents} setFormData={setFormData}/> :
+                    <DocumentCardList documents={documents} setFormData={setFormData} mode={'edit'}/> :
                     <Spinner className='m-auto' animation="border" variant="warning"/>
                 }
             </Col>

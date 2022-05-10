@@ -1,7 +1,7 @@
 import { Card, Button } from "react-bootstrap";
 import CloseButton from 'react-bootstrap/CloseButton'
 
-const DocumentCard = ({document, setFormData, mode}) => {
+const DocumentCard = ({document, setFormData, mode, borrowDocument}) => {
     const sendDocumentInfoToForm = () => {
         const formData = {
             id:document.id,
@@ -17,6 +17,9 @@ const DocumentCard = ({document, setFormData, mode}) => {
         setFormData(formData);
     }
 
+    const useBorrowDocument = () => {
+        borrowDocument(document.id);
+    }
     return(
         <>
             <Card className="m-auto mb-1" style={{ width: '19rem' }}>
@@ -36,10 +39,13 @@ const DocumentCard = ({document, setFormData, mode}) => {
                     </Card.Text>
                     {
                         mode === 'edit' &&
-                        <div className="d-flex justify-content-between">
-                            <Button variant="warning" onClick={sendDocumentInfoToForm}>Modifier</Button> 
-                            <CloseButton className="mt-3"/>
-                        </div>
+                        <Button variant="warning" onClick={sendDocumentInfoToForm}>Modifier</Button> 
+                    }
+                    {
+                        mode === 'borrow' && 
+                        (document.copies > 0 ?
+                        <Button variant="success" onClick={useBorrowDocument}>Emprunter</Button>:
+                        <Button variant="secondary" disabled>Hors Stock</Button>) 
                     }
                 </Card.Body>
                 {

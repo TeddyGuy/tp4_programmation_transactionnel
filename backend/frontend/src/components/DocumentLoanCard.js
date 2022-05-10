@@ -1,14 +1,14 @@
 import { Card, Button } from "react-bootstrap";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import DocumentCard from "./DocumentCard";
+import { fetchDocument } from "../hooks/apiHooks";
 
 const DocumentLoanCard = ({documentLoan, returnDocument}) => {
     const [document, setDocument] = useState(null);
     
     useEffect(() => {
         const getDocument = async () => {
-            const documentFromServer = await fetchDocument();
+            const documentFromServer = await fetchDocument(documentLoan.documentId);
             setDocument(documentFromServer);
         }
         getDocument();
@@ -17,17 +17,6 @@ const DocumentLoanCard = ({documentLoan, returnDocument}) => {
     const handleReturn = () => {
         returnDocument(documentLoan);
     }
-
-    const fetchDocument = async () => {
-        var documentFromServer
-        await axios.get("http://localhost:8080/documents/" + documentLoan.documentId).then((response) => {
-            documentFromServer = response.data;
-          }
-        );
-        return documentFromServer;
-    }
-
-    
 
     return(
         <>
