@@ -16,3 +16,12 @@ export const fetchDocuments = async () => {
     }); 
     return documentsFromServer;
 }
+
+export const fetchDocumentsWithCriteria = async (criteria) => {
+    var documentsFromServer;
+    await axios.post("http://localhost:8080/documents/search",criteria).then((response) => {
+        documentsFromServer = response.data
+        console.log(documentsFromServer);
+    }); 
+    return documentsFromServer;
+}

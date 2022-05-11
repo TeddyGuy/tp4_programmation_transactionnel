@@ -1,7 +1,7 @@
 import { Card, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import DocumentCard from "./DocumentCard";
-import { fetchDocument } from "../hooks/apiHooks";
+import { fetchDocument } from "../../hooks/apiHooks";
 
 const DocumentLoanCard = ({documentLoan, returnDocument}) => {
     const [document, setDocument] = useState(null);

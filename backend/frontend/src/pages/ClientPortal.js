@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
 import ClientCardList from "../components/ClientCardList";
-import ClientForm from "../components/ClientForm";
+import ClientForm from "../components/forms/ClientForm";
 import useForceUpdate from "../hooks/useForceUpdate";
 
 const ClientPortal  = () => {

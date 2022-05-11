@@ -1,5 +1,6 @@
 package com.javatown.backend.service;
 
+import com.javatown.backend.dto.input.DocumentSearchDto;
 import com.javatown.backend.dto.input.document.BookInputDto;
 import com.javatown.backend.dto.input.document.CdInputDto;
 import com.javatown.backend.dto.input.document.DocumentInputDto;
@@ -61,6 +62,15 @@ public class DocumentService {
     }
 
     public List<DocumentOutputDto> getAllDvds(){ return Document.toDocumentOutputDtoList(dvdRepository.findAll());}
+
+    public List<DocumentOutputDto> getAllDocumentsByCriteria(DocumentSearchDto dto){
+        return Document.toDocumentOutputDtoList(documentRepository
+                .findAllByTitleAndAuthorAndGenreAndPublicationYear(
+                        dto.getTitle(),
+                        dto.getAuthor(),
+                        dto.getGenre(),
+                        dto.getPublicationYear()));
+    }
 
     public DocumentOutputDto updateDocument(long id, DocumentInputDto inputDto){
         Document document = null;

@@ -2,9 +2,10 @@ import { Col, Row, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import DocumentCardList from "../components/DocumentCardList";
-import DocumentForm from "../components/DocumentForm";
+import DocumentForm from "../components/forms/DocumentForm";
 import useForceUpdate from "../hooks/useForceUpdate";
 import { fetchDocuments } from "../hooks/apiHooks";
+import DocumentSearchForm from "../components/forms/DocumentSearchForm";
 
 const AdminPortal = () => {
     const initialFormData = {
@@ -65,6 +66,7 @@ const AdminPortal = () => {
                 }
             </Col>
             <Col>
+                <DocumentSearchForm/>
                 <DocumentForm formData={formData} setFormData={setFormData} formHandler={formHandler}/>
             </Col>
         </Row>

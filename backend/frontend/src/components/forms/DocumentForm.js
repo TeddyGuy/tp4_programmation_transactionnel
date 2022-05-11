@@ -19,7 +19,7 @@ const DocumentForm = ({formHandler, formData, setFormData}) => {
 
     return(
         <>
-        <Form className='m-auto border border-warning rounded p-3' noValidate style={{ width: '32rem' }} onSubmit={formHandler}>
+        <Form className='m-auto mb-3 border border-warning rounded p-3' noValidate style={{ width: '32rem' }} onSubmit={formHandler}>
                 <h1 className='text-center'>Créer/Modifier un document</h1>
                 <Form.Group className='d-none' controlId='id'>
                     <Form.Label>ID</Form.Label>

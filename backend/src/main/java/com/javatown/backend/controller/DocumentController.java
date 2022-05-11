@@ -1,5 +1,6 @@
 package com.javatown.backend.controller;
 
+import com.javatown.backend.dto.input.DocumentSearchDto;
 import com.javatown.backend.dto.input.document.BookInputDto;
 import com.javatown.backend.dto.input.document.CdInputDto;
 import com.javatown.backend.dto.input.document.DvdInputDto;
@@ -21,6 +22,11 @@ public class DocumentController {
     @GetMapping
     public List<DocumentOutputDto> getAllDocuments(){
         return documentService.getAllDocuments();
+    }
+
+    @PostMapping("/search")
+    public List<DocumentOutputDto> searchDocumentsByCriteria(@RequestBody DocumentSearchDto dto){
+        return documentService.getAllDocumentsByCriteria(dto);
     }
 
     @GetMapping("/{id}")

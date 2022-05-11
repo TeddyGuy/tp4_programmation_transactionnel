@@ -1,4 +1,4 @@
-import ClientCard from "./ClientCard"
+import ClientCard from "./cards/ClientCard"
 
 const ClientCardList = ({clients, setFormData, onDelete}) => {
     return(

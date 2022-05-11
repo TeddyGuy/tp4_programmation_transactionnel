@@ -1,4 +1,4 @@
-import DocumentLoanCard from "./DocumentLoanCard";
+import DocumentLoanCard from "./cards/DocumentLoanCard";
 
 const DocumentLoanCardList = ({documentLoans, returnDocument}) => {
     return(
