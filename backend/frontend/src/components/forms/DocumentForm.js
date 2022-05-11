@@ -65,6 +65,7 @@ const DocumentForm = ({formHandler, formData, setFormData}) => {
                 <Form.Group className='mb-3' controlId='publicationYear'>
                     <Form.Label>Année de publication</Form.Label>
                     <Form.Control 
+                    min={1}
                     required
                     value={formData.publicationYear}  
                     onChange={(e) => setFormData({...formData, 'publicationYear': e.target.value}) }
@@ -75,6 +76,7 @@ const DocumentForm = ({formHandler, formData, setFormData}) => {
                     <Form.Group className='mb-3' controlId='pages'>
                         <Form.Label>Nombre de pages</Form.Label>
                         <Form.Control 
+                            min={1}
                             required
                             value={formData.pages}  
                             onChange={(e) => setFormData({...formData, 'pages': e.target.value}) }
@@ -84,6 +86,7 @@ const DocumentForm = ({formHandler, formData, setFormData}) => {
                 <Form.Group className='mb-3' controlId='copies'>
                     <Form.Label>Nombre d'exemplaires</Form.Label>
                     <Form.Control 
+                    min={0}
                     required
                     value={formData.copies}  
                     disabled={formData.id === ''}
