@@ -64,6 +64,13 @@ public class DocumentService {
     public List<DocumentOutputDto> getAllDvds(){ return Document.toDocumentOutputDtoList(dvdRepository.findAll());}
 
     public List<DocumentOutputDto> getAllDocumentsByCriteria(DocumentSearchDto dto){
+        if(dto.getPublicationYear() == 0)
+            return Document.toDocumentOutputDtoList(documentRepository
+                    .findAllByTitleAndAuthorAndGenre(
+                            dto.getTitle(),
+                            dto.getAuthor(),
+                            dto.getGenre()));
+
         return Document.toDocumentOutputDtoList(documentRepository
                 .findAllByTitleAndAuthorAndGenreAndPublicationYear(
                         dto.getTitle(),

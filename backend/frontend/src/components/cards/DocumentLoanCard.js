@@ -20,7 +20,7 @@ const DocumentLoanCard = ({documentLoan, returnDocument}) => {
 
     return(
         <>
-            <Card className="m-auto mb-1 bg-dark rounded border border-danger" style={{ width: '21rem' }}>
+            <Card className="m-auto mb-1 bg-dark rounded-3 border-2 border-success" style={{ width: '21rem' }}>
                 <Card.Body>
                     {
                         document == null || <DocumentCard document={document}/>

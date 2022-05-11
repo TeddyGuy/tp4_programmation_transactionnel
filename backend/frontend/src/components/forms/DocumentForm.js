@@ -1,20 +1,10 @@
 import { Form, Button } from 'react-bootstrap';
+import { emptyDocumentData } from "../../model/Document";
 
 const DocumentForm = ({formHandler, formData, setFormData}) => {
-    const initialFormData = {
-        id:'',
-        type:'',
-        title:'',
-        author:'',
-        genre:'',
-        publisher:'',
-        publicationYear:0,
-        pages:0,
-        copies:1
-    }
 
     const clearForm = () => {
-        setFormData(initialFormData)
+        setFormData(emptyDocumentData)
     } 
 
     return(

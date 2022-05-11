@@ -1,22 +1,6 @@
-import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { fetchDocumentsWithCriteria } from '../../hooks/apiHooks';
 
-const DocumentSearchForm = () => {
-    const initialFormData = {
-        title:'',
-        author:'',
-        genre:'',
-        publicationYear:0
-    }
-
-    const[formData, setFormData] = useState(initialFormData);
-
-    const formHandler = async (e) => {
-        e.preventDefault();
-        var documents = await fetchDocumentsWithCriteria(formData);
-        console.log(documents);
-    }
+const DocumentSearchForm = ({formHandler, formData, setFormData}) => {
 
     return(
         <>

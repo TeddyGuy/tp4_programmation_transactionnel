@@ -4,16 +4,25 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DocumentLoanCardList from "../components/DocumentLoansCardList";
 import useForceUpdate from "../hooks/useForceUpdate";
-import { fetchDocuments } from "../hooks/apiHooks";
+import { fetchDocuments, fetchDocumentsWithCriteria } from "../hooks/apiHooks";
 import DocumentCardList from "../components/DocumentCardList";
+import { emptyDocumentData } from "../model/Document";
+import DocumentSearchForm from "../components/forms/DocumentSearchForm";
 
 
 const ClientBorrowingHistory = () => {
+
     const {id} = useParams();
     const[client, setClient] = useState({});
     const[documentLoans, setDocumentLoans] = useState([]);
     const[documents, setDocuments] = useState([]); 
     const [update, forceUpdate] = useForceUpdate();
+    const[searchFormData, setSearchFormData] = useState(emptyDocumentData);
+
+    const searchFormHandler = async (e) => {
+        e.preventDefault();
+        forceUpdate()
+    }
 
     const fetchClient = async () => {
         var clientFromServer;
@@ -55,7 +64,7 @@ const ClientBorrowingHistory = () => {
             setDocumentLoans(documentLoansFromServer);
         }
         const getDocuments = async () => {
-            const documentsFromServer = await fetchDocuments();
+            const documentsFromServer = await fetchDocumentsWithCriteria(searchFormData);
             setDocuments(documentsFromServer);
         }
         getDocuments();
@@ -71,6 +80,9 @@ const ClientBorrowingHistory = () => {
             <Row className="py-5 px-5 m-0">
                 <Col>
                     <DocumentLoanCardList documentLoans={documentLoans} returnDocument={returnDocument}/>
+                </Col>
+                <Col>
+                    <DocumentSearchForm formData={searchFormData} setFormData={setSearchFormData} formHandler={searchFormHandler}/>
                 </Col>
                 <Col>
                     <DocumentCardList documents={documents} mode={'borrow'} borrowDocument={borrowDocument}/>

@@ -4,28 +4,24 @@ import { useEffect, useState } from "react";
 import DocumentCardList from "../components/DocumentCardList";
 import DocumentForm from "../components/forms/DocumentForm";
 import useForceUpdate from "../hooks/useForceUpdate";
-import { fetchDocuments } from "../hooks/apiHooks";
 import DocumentSearchForm from "../components/forms/DocumentSearchForm";
+import { fetchDocumentsWithCriteria } from "../hooks/apiHooks";
+import { emptyDocumentData } from "../model/Document";
 
 const AdminPortal = () => {
-    const initialFormData = {
-        id:'',
-        title:'',
-        type:'default',
-        author:'',
-        genre:'',
-        publisher:'',
-        publicationYear:0,
-        pages:0,
-        copies:1
-    }
     const[documents, setDocuments] = useState([]);
-    const[formData, setFormData] = useState(initialFormData);
+    const[formData, setFormData] = useState(emptyDocumentData);
     const [update, forceUpdate] = useForceUpdate();
+    const[searchFormData, setSearchFormData] = useState(emptyDocumentData);
+
+    const searchFormHandler = async (e) => {
+        e.preventDefault();
+        forceUpdate()
+    }
 
     useEffect(()=>{
         const getDocuments = async () => {
-            const documentsFromServer = await fetchDocuments();
+            const documentsFromServer = await fetchDocumentsWithCriteria(searchFormData);
             setDocuments(documentsFromServer);
         }
         getDocuments();
@@ -47,7 +43,7 @@ const AdminPortal = () => {
 
     const createDocument = async () => {
         await axios.post("http://localhost:8080/documents/" + formData.type + "s", formData);
-        setFormData(initialFormData);
+        setFormData(emptyDocumentData);
     }
 
     const updateDocument = async () => {
@@ -66,8 +62,10 @@ const AdminPortal = () => {
                 }
             </Col>
             <Col>
-                <DocumentSearchForm/>
                 <DocumentForm formData={formData} setFormData={setFormData} formHandler={formHandler}/>
+            </Col>
+            <Col>
+                <DocumentSearchForm formHandler={searchFormHandler} formData={searchFormData} setFormData={setSearchFormData}/>
             </Col>
         </Row>
     </>
